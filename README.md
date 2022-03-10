@@ -3,8 +3,6 @@
 We will send the *loremimsum.txt* to the recepient cyphered by post quantum algorithm. 
 
 ```python
-python3 kry.py [-c|-d] -a NAME|NUMBER -s NAME|NUMBER -f filename
-
 usage: kry.py [-h] [-c] [-d] [-a ALGORITHM] [-s SIGN] [-f FILE]
 
 optional arguments:

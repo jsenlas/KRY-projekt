@@ -40,7 +40,7 @@ def main():
     parser = argparse.ArgumentParser(
                 prog='kry.py',
                 formatter_class=argparse.RawDescriptionHelpFormatter,
-                epilog="KRY 2022 project - cypher/decypher a file.")
+                epilog="KRY 2022 project - cypher/decypher or sign a file.")
     parser.add_argument("-c", "--cypher", action="store_true", help="cypher")
     parser.add_argument("-d", "--decypher", action="store_true", help="decypher")
     parser.add_argument("-a", "--algorithm", type=str, help="algorithm")
