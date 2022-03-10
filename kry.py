@@ -54,8 +54,9 @@ def main():
     if args.decypher and args.cypher:
         raise OptionException("Wrong arguments given.")
 
-    if args.file
-    out_filename = f"cyphered/{args.file}.cypher"
+    if args.file:
+        pass
+    out_filename = f"cyphered/{args.file}"
 
 
 
