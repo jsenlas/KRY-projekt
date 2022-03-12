@@ -2,7 +2,7 @@
 
 We will send the *loremimsum.txt* to the recepient cyphered by post quantum algorithm. 
 
-```python
+```
 usage: kry.py [-h] [-c ALGORITHM] [-d ALGORITHM] [-s ALGORITHM] [-v ALGORITHM] [-k PUBLIC_KEY] [-n SIGNATURE]
               [--log]
               file
