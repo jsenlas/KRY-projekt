@@ -1,0 +1,9 @@
+INFO:root:#################################################
+INFO:root:[2022-03-12T17:03:58]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:Saving signature to file...
+INFO:root:Saving public key to file...
+INFO:root:Saved to ./out/loremipsum.txt_dir_2022-03-12T17_03_58
+INFO:root:Done.
