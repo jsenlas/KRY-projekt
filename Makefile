@@ -13,3 +13,9 @@ remove_out:
 clear_log:
 	rm kry_log.log
 	touch kry_log.log
+
+pylint:
+	pylint kry.py ./src
+
+env:
+	python3 -m venv kryenv

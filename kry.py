@@ -94,19 +94,19 @@ if __name__ == '__main__':
 
     """ Setup path """
     # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
-    path = f"./out/{argumnets.file}_dir_{start_time.replace(':', '_')}"
+    output_files_path = f"./out/{argumnets.file}_dir_{start_time.replace(':', '_')}"
     
     if not argumnets.verify:  # while verify, don't create new folder
-        os.mkdir(path)  # create directory, fix for FileNotFoundError
+        os.mkdir(output_files_path)  # create directory, fix for FileNotFoundError
 
     """ Setup logging """
     # log/dateTtime.log
     if argumnets.log:
         if argumnets.verify:  # while verify, don't create new folder
-            path = "/".join(argumnets.signature.split("/")[:-1])
-            print(path)
+            output_files_path = "/".join(argumnets.signature.split("/")[:-1])
+            print(output_files_path)
 
-        logging.basicConfig(filename=f"{path}/{argumnets.file}.log",
+        logging.basicConfig(filename=f"{output_files_path}/{argumnets.file}.log",
                             encoding='utf-8',
                             level=logging.DEBUG)
     else:
@@ -116,13 +116,13 @@ if __name__ == '__main__':
     # Log start, deliminer, time, file and size
     logging.info("#################################################")
     logging.info(f"[{start_time}]")
-    logging.info(f"File {argumnets.file} Size: {os.path.getsize(argumnets.file)}")
+    logging.info(f"File {argumnets.file} Size: {os.output_files_path.getsize(argumnets.file)}")
     # logging.debug('This message should go to the log file')
     # logging.info('So should this')
     # logging.warning('And this, too')logging.info("Done.")
     # logging.error('And non-ASCII stuff, too, like Øresund and Malmö')
 
-    main(argumnets, path)  # for testing purposes
+    main(argumnets, output_files_path)  # for testing purposes
     try:
         # main(argumnets, path)  # production :)
         pass
