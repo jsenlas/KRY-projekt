@@ -1,6 +1,6 @@
 # KRY-projekt
 
-We will send the *loremimsum.txt* to the recepient cyphered by post quantum algorithm. 
+We will send the *loremimsum.txt* to the recepient ciphered by post quantum algorithm. 
 
 ```
 usage: kry.py [-h] [-c ALGORITHM] [-d ALGORITHM] [-s ALGORITHM] [-v ALGORITHM] [-k PUBLIC_KEY] [-n SIGNATURE]
@@ -13,11 +13,11 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
 
-cypher/decypher files:
-  -c ALGORITHM, --cypher ALGORITHM
-                        Cypher a file
-  -d ALGORITHM, --decypher ALGORITHM
-                        Decypher a file
+cipher/decipher files:
+  -c ALGORITHM, --cipher ALGORITHM
+                        cipher a file
+  -d ALGORITHM, --decipher ALGORITHM
+                        Decipher a file
 
 Signing and verifying file signature:
   -s ALGORITHM, --sign ALGORITHM
@@ -30,7 +30,7 @@ Signing and verifying file signature:
                         File containing signature.
   --log                 Log to separate file in the generated directory.
 
-KRY 2022 project - cypher/decypher or sign a file.
+KRY 2022 project - cipher/decipher or sign a file.
 ```
 
 ## Examples

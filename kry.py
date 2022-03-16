@@ -17,8 +17,8 @@ def main(args, path):
     """ Main docstring """
 
     # Check combinations of arguments
-    if args.decypher and args.cypher:
-        raise OptionException("Wrong arguments given. Cypher and decypher cannot be used together.")
+    if args.decipher and args.cipher:
+        raise OptionException("Wrong arguments given. cipher and decipher cannot be used together.")
 
     if args.sign and args.verify:
         raise OptionException(
@@ -67,14 +67,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
                 prog='kry.py',
                 formatter_class=argparse.RawDescriptionHelpFormatter,
-                epilog="KRY 2022 project - cypher/decypher or sign a file.")
+                epilog="KRY 2022 project - cipher/decipher or sign a file.")
 
-    cypher_algorithm_list = [""]  # Here add name of your algorithm
-    de_cypher_group = parser.add_argument_group('cypher/decypher files')
-    de_cypher_group.add_argument("-c", "--cypher", choices=cypher_algorithm_list,
-                                 action="store", help="Cypher a file", metavar="ALGORITHM")
-    de_cypher_group.add_argument("-d", "--decypher", choices=cypher_algorithm_list,
-                                 action="store", help="Decypher a file", metavar="ALGORITHM")
+    cipher_algorithm_list = [""]  # Here add name of your algorithm
+    de_cipher_group = parser.add_argument_group('cipher/decipher files')
+    de_cipher_group.add_argument("-c", "--cipher", choices=cipher_algorithm_list,
+                                 action="store", help="cipher a file", metavar="ALGORITHM")
+    de_cipher_group.add_argument("-d", "--decipher", choices=cipher_algorithm_list,
+                                 action="store", help="Decipher a file", metavar="ALGORITHM")
 
     signature_algorithm_list = ["SPHINXPLUS"]  # Here add name of your algorithm
     signature_group = parser.add_argument_group('Signing and verifying file signature')
