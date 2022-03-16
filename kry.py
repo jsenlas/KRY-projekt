@@ -10,8 +10,9 @@ import os
 import argparse
 import logging
 import datetime
-from src.hash_based_signature import PySPHINXplus
+# from src.hash_based_signature import PySPHINXplus
 from src.exceptions import OptionException
+from src.ntru.ntrucipher import NtruCipher
 
 def main(args, path):
     """ Main docstring """
@@ -24,37 +25,36 @@ def main(args, path):
         raise OptionException(
             "Wrong arguments given. Signing and verifying signature cannot be used together.")
 
-    if args.sign == "SPHINXPLUS":  # Sign by SPHINX+
-        logging.info("EVENT_TYPE: Signing")
-        logging.info("Algorithm: SPHINX+")
+    # if args.sign == "SPHINXPLUS":  # Sign by SPHINX+
+    #     logging.info("EVENT_TYPE: Signing")
+    #     logging.info("Algorithm: SPHINX+")
+    #
+    #     psx = PySPHINXplus(args.file)
+    #     key, private_key, signature = psx.sign()
+    #
+    #     with open(f"{path}/{args.file}.signature", "wb") as fp:
+    #         logging.info("Saving signature to file...")
+    #         fp.write(signature)
+    #
+    #     # with open(f"{path}/{args.file}.pvkey", "wb") as fp:
+    #     #     logging.info("Saving public key to file.")
+    #     #     fp.write(private_key)
+    #
+    #     with open(f"{path}/{args.file}.pbkey", "wb") as fp:
+    #         logging.info("Saving public key to file...")
+    #         fp.write(key)
+    #     logging.info(f"Saved to {path}")
+    #
+    # elif args.verify == "SPHINXPLUS" and args.public_key and args.signature:
+    #     logging.info("EVENT_TYPE: Verify")
+    #     logging.info("Algorithm: SPHINX+")
+    #     psx = PySPHINXplus(args.file)
+    #     if psx.verify(args.signature, args.public_key):
+    #         logging.info("Signature successfuly veriefied.")
+    #         return
+    #     logging.info("Signature verification UNSUCCESSFUL.")
 
-        psx = PySPHINXplus(args.file)
-        key, private_key, signature = psx.sign()
-
-        with open(f"{path}/{args.file}.signature", "wb") as fp:
-            logging.info("Saving signature to file...")
-            fp.write(signature)
-
-        # with open(f"{path}/{args.file}.pvkey", "wb") as fp:
-        #     logging.info("Saving public key to file.")
-        #     fp.write(private_key)
-
-        with open(f"{path}/{args.file}.pbkey", "wb") as fp:
-            logging.info("Saving public key to file...")
-            fp.write(key)
-        logging.info(f"Saved to {path}")
-
-    elif args.verify == "SPHINXPLUS" and args.public_key and args.signature:
-        logging.info("EVENT_TYPE: Verify")
-        logging.info("Algorithm: SPHINX+")
-        psx = PySPHINXplus(args.file)
-        if psx.verify(args.signature, args.public_key):
-            logging.info("Signature successfuly veriefied.")
-            return
-        logging.info("Signature verification UNSUCCESSFUL.")
-
-    elif False:
-        # TODO More algorithms :)
+    if True:
         pass
     else:
         raise OptionException("Wrong options, ending with no action...")
@@ -69,29 +69,50 @@ if __name__ == '__main__':
                 formatter_class=argparse.RawDescriptionHelpFormatter,
                 epilog="KRY 2022 project - cipher/decipher or sign a file.")
 
-    cipher_algorithm_list = [""]  # Here add name of your algorithm
-    de_cipher_group = parser.add_argument_group('cipher/decipher files')
-    de_cipher_group.add_argument("-c", "--cipher", choices=cipher_algorithm_list,
-                                 action="store", help="cipher a file", metavar="ALGORITHM")
-    de_cipher_group.add_argument("-d", "--decipher", choices=cipher_algorithm_list,
-                                 action="store", help="Decipher a file", metavar="ALGORITHM")
+    sub_parser = parser.add_subparsers(help="cipher/decipher")
+    # ntru_parser = sub_parser.add_parser("cipher", help="cipher file")
 
-    signature_algorithm_list = ["SPHINXPLUS"]  # Here add name of your algorithm
-    signature_group = parser.add_argument_group('Signing and verifying file signature')
-    signature_group.add_argument("-s", "--sign", choices=signature_algorithm_list,
-                    help="Signing, available options are SPHINXPLUS, ", metavar="ALGORITHM")
-    signature_group.add_argument("-v", "--verify", choices=signature_algorithm_list,
-                    help="Verify signature using algorithms - SPHINXPLUS, ", metavar="ALGORITHM")
-    signature_group.add_argument("-k", "--public_key", action="store", help="File containing public key.")
-    signature_group.add_argument("-n", "--signature", action="store", help="File containing signature.")
-    signature_group.add_argument("--log", action="store_true",
-                    help="Log to separate file in the generated directory.")
-    parser.add_argument("file", type=str, help="Filename")
+    parser.add_argument("--log", action="store_true",
+                        help="Log to separate file in the generated directory.")
+
+    ######################################
+    g_parser = sub_parser.add_parser("ntru_g", help="Generating key")
+    g_parser.add_argument("-p", "--parameters", action="store", nargs=3, type=int, help="N p q")
+    g_parser.add_argument("private_file", type=str, help="Private key Filename")
+    g_parser.add_argument("public_file", type=str, help="Public key Filename")
+    #####################################
+
+    e_parser = sub_parser.add_parser("ntru_e", help="Encrypting message")
+    # e_parser.add_argument("-e","-encrypt", action="store", help="Encrypting")
+    e_parser.add_argument("public_key", type=str)
+    e_parser.add_argument("message", type=str)
+    ####################################
+
+    d_parser = sub_parser.add_parser("ntru_d", help="Decrypting message")
+    d_parser.add_argument("private_key", type=str)
+    d_parser.add_argument("encrypted_message", type=str)
+
+
+
+    # cipher_algorithm_list = [""]  # Here add name of your algorithm
+    # de_cipher_group = parser.add_argument_group('cipher/decipher files')
+    # de_cipher_group.add_argument("-c", "--cipher", choices=cipher_algorithm_list,
+    #                              action="store", help="cipher a file", metavar="ALGORITHM")
+    # de_cipher_group.add_argument("-d", "--decipher", choices=cipher_algorithm_list,
+    #                              action="store", help="Decipher a file", metavar="ALGORITHM")
+
+    sign_parser = sub_parser.add_parser("sphinx_sign", help='Signing a file')
+    sign_parser.add_argument("file", type=str, help="Filename")
+
+    verify_parser = sub_parser.add_parser("sphinx_verify", help='Verifying file signature')
+    verify_parser.add_argument("-k", "--public_key", action="store", help="File containing public key.")
+    verify_parser.add_argument("-n", "--signature", action="store", help="File containing signature.")
+    verify_parser.add_argument("file", type=str, help="Filename")
 
     argumnets = parser.parse_args()
 
     print(argumnets)  # for debug only
-
+    exit()
     """ Setup path """
     # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
     output_files_path = f"./out/{argumnets.file}_dir_{start_time.replace(':', '_')}"
