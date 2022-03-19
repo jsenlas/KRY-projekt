@@ -6,6 +6,7 @@
 
 import pyspx.shake256_128f as pysphinx
 import numpy as np
+from src.utils import log_print
 
 class PySPHINXplus():
     """docstring for PySPHINXPLUS"""
@@ -22,7 +23,7 @@ class PySPHINXplus():
         public_key, secret_key = pysphinx.generate_keypair(seed)
         # signing
         signature = pysphinx.sign(self.message, secret_key)
-        return public_key, secret_key, signature
+        return public_key, secret_key, signature    
 
     def verify(self, signature, public_key):
         """ Verifing signature """

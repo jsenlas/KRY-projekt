@@ -7,3 +7,215 @@ INFO:root:Saving signature to file...
 INFO:root:Saving public key to file...
 INFO:root:Saved to ./out/loremipsum.txt_dir_2022-03-12T17_03_58
 INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:21:45]
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:22:07]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:23:11]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:25:07]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:28:05]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:28:30]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:29:35]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:29:58]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:30:37]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:31:06]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:32:44]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:33:04]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:34:36]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:35:06]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:35:45]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:37:51]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:38:30]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:39:28]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:40:49]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:41:04]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:Saving signature to file...
+INFO:root:Saving public key to file...
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:41:21]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:Saving signature to file...
+INFO:root:Saving public key to file...
+INFO:root:Saved to ./out/loremipsum.txt_dir_2022-03-17T17_41_21
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:42:51]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:44:40]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:45:37]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:45:50]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Signature verification UNSUCCESSFUL.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:49:01]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:49:40]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:50:01]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:50:17]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:51:09]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:51:21]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:Saving signature to file...
+INFO:root:Saving public key to file...
+INFO:root:Saved to ./out/loremipsum.txt_dir_2022-03-17T17_51_21
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:52:04]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:53:18]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:54:00]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:54:06]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:Saving signature to file...
+INFO:root:Saving public key to file...
+INFO:root:Saved to ./out/loremipsum.txt_dir_2022-03-17T17_54_06
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:54:57]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:55:23]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-17T17:55:33]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Verify
+INFO:root:Algorithm: SPHINX+
+INFO:root:Signature successfuly veriefied.
+INFO:root:Done.
+INFO:root:#################################################
+INFO:root:[2022-03-19T19:45:09]
+INFO:root:File loremipsum.txt Size: 574
+INFO:root:EVENT_TYPE: Signing
+INFO:root:Algorithm: SPHINX+
+INFO:root:Saving signature to file...
+INFO:root:Saving public key to file...
+INFO:root:Saved to ./out/loremipsum.txt_dir_2022-03-19T19_45_09
+INFO:root:Done.

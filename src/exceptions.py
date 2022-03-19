@@ -1,3 +1,4 @@
+from src.utils import log_print
 import logging
 
 class KRYException(Exception):
@@ -5,8 +6,7 @@ class KRYException(Exception):
     def __init__(self, message):
         """ docstring """
         super().__init__()
-        print(message)
-        logging.info(message)
+        log_print(message)
 
 
 class OptionException(KRYException):

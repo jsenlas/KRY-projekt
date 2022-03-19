@@ -7,58 +7,14 @@ Authors:
 """
 
 import os
+import sys
 import argparse
 import logging
 import datetime
-# from src.hash_based_signature import PySPHINXplus
+from src.hash_based_signature import PySPHINXplus
 from src.exceptions import OptionException
-from src.ntru.ntrucipher import NtruCipher
-
-def main(args, path):
-    """ Main docstring """
-
-    # Check combinations of arguments
-    if args.decipher and args.cipher:
-        raise OptionException("Wrong arguments given. cipher and decipher cannot be used together.")
-
-    if args.sign and args.verify:
-        raise OptionException(
-            "Wrong arguments given. Signing and verifying signature cannot be used together.")
-
-    # if args.sign == "SPHINXPLUS":  # Sign by SPHINX+
-    #     logging.info("EVENT_TYPE: Signing")
-    #     logging.info("Algorithm: SPHINX+")
-    #
-    #     psx = PySPHINXplus(args.file)
-    #     key, private_key, signature = psx.sign()
-    #
-    #     with open(f"{path}/{args.file}.signature", "wb") as fp:
-    #         logging.info("Saving signature to file...")
-    #         fp.write(signature)
-    #
-    #     # with open(f"{path}/{args.file}.pvkey", "wb") as fp:
-    #     #     logging.info("Saving public key to file.")
-    #     #     fp.write(private_key)
-    #
-    #     with open(f"{path}/{args.file}.pbkey", "wb") as fp:
-    #         logging.info("Saving public key to file...")
-    #         fp.write(key)
-    #     logging.info(f"Saved to {path}")
-    #
-    # elif args.verify == "SPHINXPLUS" and args.public_key and args.signature:
-    #     logging.info("EVENT_TYPE: Verify")
-    #     logging.info("Algorithm: SPHINX+")
-    #     psx = PySPHINXplus(args.file)
-    #     if psx.verify(args.signature, args.public_key):
-    #         logging.info("Signature successfuly veriefied.")
-    #         return
-    #     logging.info("Signature verification UNSUCCESSFUL.")
-
-    if True:
-        pass
-    else:
-        raise OptionException("Wrong options, ending with no action...")
-
+from src.utils import log_print
+# from src.ntru.ntrucipher import NtruCipher
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now().isoformat().split('.')[0]
@@ -75,86 +31,105 @@ if __name__ == '__main__':
     parser.add_argument("--log", action="store_true",
                         help="Log to separate file in the generated directory.")
 
-    ######################################
+    ##################################################
     g_parser = sub_parser.add_parser("ntru_g", help="Generating key")
     g_parser.add_argument("-p", "--parameters", action="store", nargs=3, type=int, help="N p q")
     g_parser.add_argument("private_file", type=str, help="Private key Filename")
     g_parser.add_argument("public_file", type=str, help="Public key Filename")
-    #####################################
-
+    
+    ##################################################
     e_parser = sub_parser.add_parser("ntru_e", help="Encrypting message")
-    # e_parser.add_argument("-e","-encrypt", action="store", help="Encrypting")
     e_parser.add_argument("public_key", type=str)
     e_parser.add_argument("message", type=str)
-    ####################################
 
+    ##################################################
     d_parser = sub_parser.add_parser("ntru_d", help="Decrypting message")
     d_parser.add_argument("private_key", type=str)
     d_parser.add_argument("encrypted_message", type=str)
 
-
-
-    # cipher_algorithm_list = [""]  # Here add name of your algorithm
-    # de_cipher_group = parser.add_argument_group('cipher/decipher files')
-    # de_cipher_group.add_argument("-c", "--cipher", choices=cipher_algorithm_list,
-    #                              action="store", help="cipher a file", metavar="ALGORITHM")
-    # de_cipher_group.add_argument("-d", "--decipher", choices=cipher_algorithm_list,
-    #                              action="store", help="Decipher a file", metavar="ALGORITHM")
-
+    ##################################################
     sign_parser = sub_parser.add_parser("sphinx_sign", help='Signing a file')
     sign_parser.add_argument("file", type=str, help="Filename")
 
+    ##################################################
     verify_parser = sub_parser.add_parser("sphinx_verify", help='Verifying file signature')
     verify_parser.add_argument("-k", "--public_key", action="store", help="File containing public key.")
     verify_parser.add_argument("-n", "--signature", action="store", help="File containing signature.")
     verify_parser.add_argument("file", type=str, help="Filename")
 
-    argumnets = parser.parse_args()
+    arguments = parser.parse_args()
 
-    print(argumnets)  # for debug only
-    exit()
-    """ Setup path """
-    # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
-    output_files_path = f"./out/{argumnets.file}_dir_{start_time.replace(':', '_')}"
+    print(parser)
+    print(sign_parser)
+    print(arguments)  # for debug only
     
-    if not argumnets.verify:  # while verify, don't create new folder
-        os.mkdir(output_files_path)  # create directory, fix for FileNotFoundError
+    # """ Setup path """
+    # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
+    output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
+    print(output_files_path)
 
     """ Setup logging """
-    # log/dateTtime.log
-    if argumnets.log:
-        if argumnets.verify:  # while verify, don't create new folder
-            output_files_path = "/".join(argumnets.signature.split("/")[:-1])
-            print(output_files_path)
+    log_filename = "kry_log.log" # default
+    create_directory_flag = True
+    if arguments.log:
+        if "sphinx_verify" in sys.argv:
+            output_files_path = "/".join(arguments.signature.split("/")[:-1])
+            log_filename = f"{output_files_path}/{arguments.file}.log"
+            create_directory_flag = False  # while verify, don't create a new folder
 
-        logging.basicConfig(filename=f"{output_files_path}/{argumnets.file}.log",
-                            encoding='utf-8',
-                            level=logging.DEBUG)
-    else:
-        # default
-        logging.basicConfig(filename="kry_log.log", encoding='utf-8', level=logging.DEBUG)
+    if create_directory_flag:
+        os.mkdir(output_files_path)  # create directory, fix for FileNotFoundError
+
+
+    print("LOGFILENAME", log_filename)
+    logging.basicConfig(filename=log_filename, encoding='utf-8', level=logging.DEBUG)
 
     # Log start, deliminer, time, file and size
-    logging.info("#################################################")
-    logging.info(f"[{start_time}]")
-    logging.info(f"File {argumnets.file} Size: {os.output_files_path.getsize(argumnets.file)}")
+    log_print("#################################################")
+    log_print(f"[{start_time}]")
+    log_print(f"File {arguments.file} Size: {os.path.getsize(arguments.file)}")
     # logging.debug('This message should go to the log file')
     # logging.info('So should this')
     # logging.warning('And this, too')logging.info("Done.")
     # logging.error('And non-ASCII stuff, too, like Øresund and Malmö')
 
-    main(argumnets, output_files_path)  # for testing purposes
-    try:
-        # main(argumnets, path)  # production :)
-        pass
-    except OptionException:
-        parser.print_help()
-    except MemoryError as exc:
-        print(exc)
-        logging.error(exc)
+    if "sphinx_sign" in sys.argv:
+        log_print("EVENT_TYPE: Signing")
+        log_print("Algorithm: SPHINX+")
+        psx = PySPHINXplus(arguments.file)
+        key, private_key, signature = psx.sign()
+    
+        print(f"{output_files_path}/{arguments.file}.signature")
+        with open(f"{output_files_path}/{arguments.file}.signature", "wb") as fp:
+            log_print("Saving signature to file...")
+            fp.write(signature)
+        
+        # # save private key
+        # with open(f"{path}/{arguments.file}.pvkey", "wb") as fp:
+        #     logging.info("Saving public key to file.")
+        #     fp.write(private_key)
+    
+        with open(f"{output_files_path}/{arguments.file}.pbkey", "wb") as fp:
+            log_print("Saving public key to file...")
+            fp.write(key)
+        log_print(f"Saved to {output_files_path}")
 
-    except Exception as exc:
-        print(exc)
-        logging.error(exc)
-    finally:
-        logging.info("Done.")
+    elif "sphinx_verify" in sys.argv:
+        log_print("EVENT_TYPE: Verify")
+        log_print("Algorithm: SPHINX+")
+        psx = PySPHINXplus(arguments.file)
+        if psx.verify(arguments.signature, arguments.public_key):
+            log_print("Signature successfuly veriefied.")
+        else:
+            log_print("Signature verification UNSUCCESSFUL.")
+
+    elif "ntru_g" in sys.argv:
+        pass
+    elif "ntru_e" in sys.argv:
+        pass
+    elif "public_key" in sys.argv:
+        pass
+    elif "ntru_d" in sys.argv:
+        pass
+
+    log_print("Done.")

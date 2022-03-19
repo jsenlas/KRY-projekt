@@ -4,8 +4,8 @@ install:
 help:
 	python3 kry.py -h 
 
-sign:
-	python3 kry.py -c SPHINXPLUS loremipsum.txt
+sign_sphinx:
+	python3 kry.py sphinx_sign loremipsum.txt
 
 remove_out:
 	rm -rf out/*
@@ -18,4 +18,4 @@ pylint:
 	pylint kry.py ./src
 
 env:
-	python3 -m venv kryenv
+	python3 -m venv env
