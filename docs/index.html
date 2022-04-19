@@ -208,6 +208,8 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Documentation
@@ -224,6 +226,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -232,14 +236,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kry-projekt" class="md-nav__link">
-    KRY-projekt
-  </a>
-  
-    <nav class="md-nav" aria-label="KRY-projekt">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#development" class="md-nav__link">
     Development
   </a>
@@ -262,7 +258,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#example_run" class="md-nav__link">
+  <a href="#example-run" class="md-nav__link">
     Example run
   </a>
   
@@ -279,16 +275,16 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#general_commands" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#general-commands" class="md-nav__link">
     General commands
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#ntru_usage" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#ntru-usage" class="md-nav__link">
     NTRU usage
   </a>
   
@@ -320,9 +316,9 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#sphinx_usage" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#sphinx-usage" class="md-nav__link">
     SPHINX+ usage
   </a>
   
@@ -347,16 +343,11 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -415,6 +406,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -423,14 +416,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kry-projekt" class="md-nav__link">
-    KRY-projekt
-  </a>
-  
-    <nav class="md-nav" aria-label="KRY-projekt">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#development" class="md-nav__link">
     Development
   </a>
@@ -453,7 +438,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#example_run" class="md-nav__link">
+  <a href="#example-run" class="md-nav__link">
     Example run
   </a>
   
@@ -470,16 +455,16 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#general_commands" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#general-commands" class="md-nav__link">
     General commands
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#ntru_usage" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#ntru-usage" class="md-nav__link">
     NTRU usage
   </a>
   
@@ -511,9 +496,9 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#sphinx_usage" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#sphinx-usage" class="md-nav__link">
     SPHINX+ usage
   </a>
   
@@ -538,16 +523,11 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -569,26 +549,24 @@
 
 
 
-  <h1>Documentation</h1>
-
-<h2 id="kry-projekt">KRY-projekt</h2>
+<h1 id="kry-projekt">KRY-projekt</h1>
 <p>We will encipher/decipher or sign a file by a post quantum algorithm. </p>
-<h3 id="development">Development</h3>
+<h2 id="development">Development</h2>
 <p>For making it easier for development we created a simple Makefile that let's you do first setup, installation, cleanup and meassuring quality of code.</p>
-<h4 id="setup">Setup</h4>
+<h3 id="setup">Setup</h3>
 <pre><code class="language-text">python3 -m venv env            # create virtual environment - run only once
 source ./env/bin/activate      # go to virtual environment
 pip3 install -r requirements.txt  # install python libraries
 </code></pre>
-<h4 id="cleanup">Cleanup</h4>
+<h3 id="cleanup">Cleanup</h3>
 <pre><code class="language-text">make remove_out
 make clear_log
 </code></pre>
-<h4 id="example_run">Example run</h4>
+<h3 id="example-run">Example run</h3>
 <p>Sign a file using SPHINX+.</p>
 <pre><code class="language-text">make sign
 </code></pre>
-<h4 id="quality">Quality</h4>
+<h3 id="quality">Quality</h3>
 <p>To measure quality of code we use pylint code checker.</p>
 <pre><code class="language-text">make pylint
 </code></pre>
@@ -598,7 +576,7 @@ make clear_log
 <li>8/10 at least please :D</li>
 </ul>
 <p><strong>This checks every python file and prints out collective score I <em>SUGGEST</em> to run</strong> <code>pylint yourfile.py</code> <strong>for you to know score of your file and keep it above 8.0</strong></p>
-<h3 id="general_commands">General commands</h3>
+<h2 id="general-commands">General commands</h2>
 <p>For each of our algorithms we use different commands in format <em>algoritm</em>_<em>action</em> as can be seen bellow.</p>
 <pre><code class="language-text">usage: kry.py [-h] [--log] [--onedir] {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify} ...
 
@@ -619,8 +597,8 @@ optional arguments:
 KRY 2022 project - cipher/decipher or sign a file.
 
 </code></pre>
-<h3 id="ntru_usage">NTRU usage</h3>
-<h4 id="generate">Generate</h4>
+<h2 id="ntru-usage">NTRU usage</h2>
+<h3 id="generate">Generate</h3>
 <pre><code class="language-text">usage: kry.py ntru_g [-h] [-p PARAMETERS PARAMETERS PARAMETERS] private_file public_file
 
 positional arguments:
@@ -633,7 +611,7 @@ optional arguments:
                         N p q
 
 </code></pre>
-<h4 id="encrypt">Encrypt</h4>
+<h3 id="encrypt">Encrypt</h3>
 <pre><code class="language-text">usage: kry.py ntru_e [-h] public_key message
 
 positional arguments:
@@ -643,7 +621,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 </code></pre>
-<h4 id="decrypt">Decrypt</h4>
+<h3 id="decrypt">Decrypt</h3>
 <pre><code class="language-text">usage: kry.py ntru_d [-h] private_key encrypted_message
 
 positional arguments:
@@ -654,8 +632,8 @@ optional arguments:
   -h, --help         show this help message and exit
 
 </code></pre>
-<h3 id="sphinx_usage">SPHINX+ usage</h3>
-<h4 id="sign">Sign</h4>
+<h2 id="sphinx-usage">SPHINX+ usage</h2>
+<h3 id="sign">Sign</h3>
 <pre><code class="language-text">usage: kry.py sphinx_sign [-h] file
 
 positional arguments:
@@ -664,7 +642,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 </code></pre>
-<h4 id="verify">Verify</h4>
+<h3 id="verify">Verify</h3>
 <pre><code class="language-text">usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-n SIGNATURE] file
 
 positional arguments:
@@ -677,7 +655,7 @@ optional arguments:
   -n SIGNATURE, --signature SIGNATURE
                         File containing signature.
 </code></pre>
-<h3 id="examples">Examples</h3>
+<h2 id="examples">Examples</h2>
 <p>You can run this test by running <code>make test_sphinx</code>. It will sign the file and then verify it. To show the functionality we change the original file and try to run verification again with (ecpected) unsuccessful result.</p>
 <p>Signing a file.</p>
 <pre><code class="language-text">python3 kry.py --onedir sphinx_sign loremipsum.txt
