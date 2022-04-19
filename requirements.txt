@@ -1,3 +1,6 @@
 numpy
 pyspx
+pynewhope
 pylint
+sympy
+mkdocs

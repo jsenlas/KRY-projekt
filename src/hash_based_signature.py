@@ -27,11 +27,12 @@ class PySPHINXplus():
 
     def verify(self, signature, public_key):
         """ Verifing signature """
-        with open(signature, "rb") as fp:
+        with open(signature, "rb") as fp:  # read signature file
             signature = fp.read()
-        with open(public_key, "rb") as fp:
+        with open(public_key, "rb") as fp:  # read public key file
             public_key = fp.read()
 
+        # Verify the signature
         if pysphinx.verify(self.message, signature, public_key):
             return 1
         return 0
