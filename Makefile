@@ -42,3 +42,6 @@ loremipsum:
 
 documentation:
 	mkdocs serve
+
+gh_publish:
+	mkdocs gh-deploy

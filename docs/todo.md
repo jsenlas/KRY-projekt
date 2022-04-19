@@ -1,5 +1,5 @@
 # TODO
 
-- [ ] Dokumentace stačí v kódě 
-- [x] Popis spustania kódu
-- [ ] Zasifrovat private kluce aspon SHAXX
+- [ ] Documentation in the code
+- [x] Description how to run our code
+- [ ] Cipher private keys using any currently used algoritm
