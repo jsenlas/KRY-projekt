@@ -14,6 +14,10 @@ source ./env/bin/activate      # go to virtual environment
 pip3 install -r requirements.txt  # install python libraries
 ```
 
+Make sure that you have updated ```pip``` to the latest version. PySPX requires you to install ```openssl```. E.g. ```sudo apt -y install libssl-dev```.
+
+
+
 ### Example run
 
 Sign a file using SPHINX+.

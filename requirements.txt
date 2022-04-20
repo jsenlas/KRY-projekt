@@ -1,6 +1,7 @@
 numpy
-pyspx
+pyldpc==0.7.9
 pynewhope
-pylint
 sympy
+pyspx
 mkdocs
+pylint

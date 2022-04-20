@@ -12,7 +12,8 @@ positional arguments:
     ntru_e              Encrypting message
     ntru_d              Decrypting message
     sphinx_sign         Signing a file
-    sphinx_verify       Verifying file signature
+    sphinx_verify       Verifying file signature3243
+    
 
 optional arguments:
   -h, --help            show this help message and exit

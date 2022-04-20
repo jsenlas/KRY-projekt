@@ -6,7 +6,7 @@
 
 import pyspx.shake256_128f as pysphinx
 import numpy as np
-from src.utils import log_print
+from src.utilities import log_print
 
 class PySPHINXplus():
     """docstring for PySPHINXPLUS"""

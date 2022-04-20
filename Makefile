@@ -10,6 +10,11 @@ install:
 help:
 	python3 kry.py -h 
 
+sign_code_based:
+	@echo "Example of signing a file using SPHINX+ algorithm."
+	python3 kry.py --onedir code_sign loremipsum.txt
+
+	
 sign_sphinx:
 	@echo "Example of signing a file using SPHINX+ algorithm."
 	python3 kry.py --onedir sphinx_sign loremipsum.txt
