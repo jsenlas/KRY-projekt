@@ -24,8 +24,8 @@ import math
 from src.ntru.padding import *
 from sympy.abc import x
 
-from src.McEliece.src.LDPC import LDPC
-from src.McEliece.src.McEliece import McEliece
+from src.mceliece.LDPC import LDPC
+from src.mceliece.McEliece import McEliece
 
 ########## Ntru Functions ##############
 def generate(N, p, q, priv_key_file, pub_key_file):
