@@ -1,3 +1,0 @@
-[submodule "src/McEliece"]
-	path = src/McEliece
-	url = https://github.com/somnoynadno/McEliece.git

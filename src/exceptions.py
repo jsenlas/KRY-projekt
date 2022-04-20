@@ -1,5 +1,4 @@
-from src.utils import log_print
-import logging
+from src.utilities import log_print
 
 class KRYException(Exception):
     """ Neat way of printing and logging exceptions """
