@@ -127,6 +127,10 @@ if __name__ == '__main__':
     sphinx_verify_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
+    multivariate_sign_parser = sub_parser.add_parser("sign_multivariate", help='Signing a file')
+    multivariate_sign_parser.add_argument("file", type=str, help="Filename")
+
+    ##################################################
     m_encrypt_parser = sub_parser.add_parser("encrypt_mceliece", help='Encrypt file using McEliece.')
     m_encrypt_parser.add_argument("file", type=str, help="Filename")
 
@@ -165,7 +169,7 @@ if __name__ == '__main__':
             pass
 
     # print("LOGFILENAME", log_filename)
-    logging.basicConfig(filename=log_filename, encoding='utf-8', level=logging.DEBUG)
+    #logging.basicConfig(filename=log_filename, encoding='utf-8', level=logging.DEBUG)
 
     # Log start, deliminer, time, file and size
     log_print("#################################################")
