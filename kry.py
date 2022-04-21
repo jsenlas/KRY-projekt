@@ -44,7 +44,7 @@ def generate(N, p, q, priv_key_file, pub_key_file):
     log_print("Public key saved to {} file".format(pub_key_file))
 
 
-def encrypt(pub_key_file, input_arr, bin_output=False, block=True):
+def encrypt(pub_key_file, input_arr, bin_output=True, block=True):
     input_arr = np.unpackbits(np.frombuffer(input_arr, dtype=np.uint8))
     input_arr = np.trim_zeros(input_arr, 'b')
     log_print("POLYNOMIAL DEGREE: {}".format(max(0, len(input_arr) - 1)))
@@ -75,6 +75,42 @@ def encrypt(pub_key_file, input_arr, bin_output=False, block=True):
         k = int(math.log2(ntru.q))
         output = [[0 if c == '0' else 1 for c in np.binary_repr(n, width=k)] for n in output]
     return np.array(output).flatten()
+
+
+def decrypt(priv_key_file, input_arr, bin_input=True, block=True):
+    input_arr = np.unpackbits(np.frombuffer(input_arr, dtype=np.uint8))
+    input_arr = np.trim_zeros(input_arr, 'b')
+
+    priv_key = np.load(priv_key_file, allow_pickle=True)
+    ntru = NtruCipher(int(priv_key['N']), int(priv_key['p']), int(priv_key['q']))
+    ntru.f_poly = Poly(priv_key['f'].astype(np.int)[::-1], x).set_domain(ZZ)
+    ntru.f_p_poly = Poly(priv_key['f_p'].astype(np.int)[::-1], x).set_domain(ZZ)
+
+    if bin_input:
+        k = int(math.log2(ntru.q))
+        pad = k - len(input_arr) % k
+        if pad == k:
+            pad = 0
+        input_arr = np.array([int("".join(n.astype(str)), 2) for n in
+                              np.pad(np.array(input_arr), (0, pad), 'constant').reshape((-1, k))])
+    if not block:
+        if ntru.N < len(input_arr):
+            raise Exception("Input is too large for current N")
+        log_print("POLYNOMIAL DEGREE: {}".format(max(0, len(input_arr) - 1)))
+        return ntru.decrypt(Poly(input_arr[::-1], x).set_domain(ZZ)).all_coeffs()[::-1]
+    # import pdb
+    # pdb.set_trace()
+    input_arr = input_arr.reshape((-1, ntru.N))
+    output = np.array([])
+    block_count = input_arr.shape[0]
+    for i, b in enumerate(input_arr, start=1):
+        log_print("Processing block {} out of {}".format(i, block_count))
+        next_output = ntru.decrypt(Poly(b[::-1], x).set_domain(ZZ)).all_coeffs()[::-1]
+        if len(next_output) < ntru.N:
+            next_output = np.pad(next_output, (0, ntru.N - len(next_output)), 'constant')
+        output = np.concatenate((output, next_output))
+    return padding_decode(output, ntru.N)
+
 
 #############################################
 
@@ -109,12 +145,14 @@ if __name__ == '__main__':
     ##################################################
     e_parser = sub_parser.add_parser("ntru_e", help="Encrypting message")
     e_parser.add_argument("public_key", type=str)
+    e_parser.add_argument("encrypted_file", type=str)
     e_parser.add_argument("message", type=str)
 
     ##################################################
     d_parser = sub_parser.add_parser("ntru_d", help="Decrypting message")
     d_parser.add_argument("private_key", type=str)
     d_parser.add_argument("encrypted_message", type=str)
+    d_parser.add_argument("decrypted_file", type=str)
 
     ##################################################
     sphinx_sign_parser = sub_parser.add_parser("sphinx_sign", help='Signing a file')
@@ -139,13 +177,16 @@ if __name__ == '__main__':
     # print(parser)
     # print(g_parser)
     # print(arguments)  # for debug only
-    
+    # import pdb
+    # pdb.set_trace()
     # """ Setup path """
     if arguments.onedir:
         output_files_path = f"./out"
     else:
         # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
-        output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
+        output_files_path = f"./out"
+        if "ntru_g" not in sys.argv:
+            output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
     
     # print(output_files_path)
 
@@ -212,11 +253,24 @@ if __name__ == '__main__':
         N,p,q = arguments.parameters
         generate(N,p,q, arguments.private_file, arguments.public_file)
     elif "ntru_e" in sys.argv:
+        log_print(f"Reading file {arguments.message}")
         with open(arguments.message, "rb") as fp:
             message = fp.read()
+        log_print(f"Encrypting using public key {arguments.public_key}")
         output = encrypt(arguments.public_key, message)
-        with open("bubu", "wb") as fp:
-            fp.write(output)
+        log_print(f"Saving encrypted message to {arguments.encrypted_file}")
+        with open(arguments.encrypted_file, "wb") as fp:
+            fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
+
+    elif "ntru_d" in sys.argv:
+        log_print(f"Opening encrypted message in file {arguments.encrypted_message}")
+        with open(arguments.encrypted_message, "rb") as fp:
+            message = fp.read()
+        log_print(f"Decrypting using {arguments.private_key}")
+        output = decrypt(arguments.private_key, message)
+        log_print(f"Saving output into {arguments.decrypted_file}")
+        with open(arguments.decrypted_file, "wb") as fp:
+            fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
 
     elif "encrypt_mceliece" in sys.argv:
         with open(arguments.file, "r") as fp:
@@ -244,5 +298,7 @@ if __name__ == '__main__':
     elif "decrypt_mceliece" in sys.argv:
         with open(arguments.file, "r") as fp:
             content = fp.read()
+    else:
+        log_print("You are wrong...")
 
     log_print("Done.")
