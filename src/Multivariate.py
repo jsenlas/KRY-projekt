@@ -9,31 +9,33 @@ from cryptovinaigrette import cryptovinaigrette
 
 import pyspx.shake256_128f as pysphinx
 import numpy as np
-from src.utils import log_print
+from src.utilities import log_print
 
 class Multivariate():
-    """docstring for PySPHINXPLUS"""
-    def __init__(self, filename, private_key):
+    """docstring for Multivariate"""
+    def __init__(self, filename):
         super().__init__()
+        self.filename = filename
         with open(filename, "rb") as fp:
             self.message = fp.read()
-            self.private_key = private_key
 
     def sign(self):
         """ signing """
         # Initialise keygen object and generate keys
-        myKeyObject = cryptovinaigrette.rainbowKeygen(save="/path/to/dest/folder")
+        
+        myKeyObject = cryptovinaigrette.rainbowKeygen(save="./out/")
 
         # signing
-        signature = cryptovinaigrette.rainbowKeygen.sign(private_key, self.message)
+        signature = cryptovinaigrette.rainbowKeygen.sign("./out/cvPriv.pem", self.filename)
 
-        return signature    
+        return signature
 
-    def verify(self, signature, public_key):
-        check = cryptovinaigrette.rainbowKeygen.verify(public_key, signature, self.message)
-
-        if check == True :
-            print("Verified successfully!")
-        else :
-            print("Signature does not match the file!")
+    def verify(self, signature):
+        signatureList=[]
+        with open(signature, "r") as fp:  # read signature file
+            log_print("Making list from signature file...")
+            signatureList = [int(line.strip()) for line in fp]
+        if cryptovinaigrette.rainbowKeygen.verify('./out/cvPub.pub', signatureList, self.filename):
+            return 1
         return 0
+

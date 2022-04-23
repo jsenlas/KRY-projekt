@@ -14,6 +14,7 @@ import datetime
 from src.hash_based_signature import PySPHINXplus
 from src.exceptions import OptionException
 from src.utilities import log_print
+from src.Multivariate import Multivariate
 
 ########## Ntru import ############
 from src.ntru.ntrucipher import NtruCipher
@@ -169,6 +170,13 @@ if __name__ == '__main__':
     multivariate_sign_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
+    multivariate_verify_parser = sub_parser.add_parser("verify_multivariate", help='Verifying file signature')
+    multivariate_verify_parser.add_argument("-k", "--public_key", action="store", help="File containing public key.")
+    multivariate_verify_parser.add_argument("-s", "--signature", action="store", help="File containing signature.")
+    multivariate_verify_parser.add_argument("file", type=str, help="Filename")
+
+
+    ##################################################
     m_encrypt_parser = sub_parser.add_parser("encrypt_mceliece", help='Encrypt file using McEliece.')
     m_encrypt_parser.add_argument("file", type=str, help="Filename")
 
@@ -243,6 +251,28 @@ if __name__ == '__main__':
             log_print("Saving public key to file...")
             fp.write(key)
         log_print(f"Saved to {output_files_path}")
+
+    elif "sign_multivariate" in sys.argv:
+        log_print("EVENT_TYPE: Signing")
+        log_print("Algorithm: Multivariate")
+        multivariate = Multivariate(arguments.file)
+        signature = multivariate.sign()
+        print("SIGNATURE:", signature)
+        print(f"{output_files_path}/{arguments.file}.signature")
+        with open(f"{output_files_path}/{arguments.file}.signature", "w") as fp:
+            log_print("Saving signature to file...")
+            for element in signature:
+                fp.write(str(element) + "\n")
+        
+    elif "verify_multivariate" in sys.argv:
+        log_print("EVENT_TYPE: Verify")
+        log_print("Algorithm: Multivariate")
+        multivariate = Multivariate(arguments.file)
+        print(arguments.signature)
+        if multivariate.verify(arguments.signature):
+            log_print("Signature successfuly veriefied.")
+        else:
+            log_print("Signature verification UNSUCCESSFUL.")
 
     elif "sphinx_verify" in sys.argv:
         log_print("EVENT_TYPE: Verify")

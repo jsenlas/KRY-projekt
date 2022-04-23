@@ -18,6 +18,20 @@ sign_multivariate:
 	@echo "Example of signing a file using multivariate algorithm."
 	python3 kry.py --onedir sign_multivariate loremipsum.txt
 
+test_multivariate:
+	@echo "TEST START"
+	@echo "In this test we sign a document, change and verify it successfully, then we changed the file and verified again with unsuccessfull result."
+	@echo "@@@@@@ Signing @@@@@@"
+	python3 kry.py --onedir sign_multivariate loremipsum.txt
+	@echo "@@@@@@ Verification should SUCCEED: @@@@@@"
+	python3 kry.py --onedir verify_multivariate -s out/loremipsum.txt.signature -k out/cvPub.pub loremipsum.txt 
+	@echo "Modifying original file"
+	@echo "loremipsum" >> loremipsum.txt
+	@echo "@@@@@@ Verification should FAIL: @@@@@@"
+	python3 kry.py --onedir verify_multivariate -s out/loremipsum.txt.signature -k out/cvPub.pub loremipsum.txt 
+	make loremipsum
+
+
 sign_sphinx:
 	@echo "Example of signing a file using SPHINX+ algorithm."
 	python3 kry.py --onedir sphinx_sign loremipsum.txt
