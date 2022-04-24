@@ -1,10 +1,5 @@
-from zipfile import ZipFile
-import os
-from os.path import basename
-from zipfile import ZipFile
 import pyzipper
 import os
-from os.path import basename
 
 # Zip the files from given directory that matches the filter
 def save():
