@@ -16,7 +16,9 @@ class PySPHINXplus():
             self.message = fp.read()
 
     def sign(self):
-        """ signing """
+        """ signing 
+            return: public_key, secret_key, signature
+        """
         # generate random seed
         seed = np.random.bytes(pysphinx.crypto_sign_SEEDBYTES)
         # generating key pair
@@ -26,7 +28,12 @@ class PySPHINXplus():
         return public_key, secret_key, signature    
 
     def verify(self, signature, public_key):
-        """ Verifing signature """
+        """ Verifing signature 
+            signature: filename contatining signature 
+            public_key: filename containing public key 
+
+            return: boolean value
+        """
         with open(signature, "rb") as fp:  # read signature file
             signature = fp.read()
         with open(public_key, "rb") as fp:  # read public key file
