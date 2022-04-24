@@ -20,8 +20,9 @@ from src.save import save
 
 from src.ntru.ntrumain import *
 
-from src.mceliece.LDPC import LDPC
-from src.mceliece.McEliece import McEliece
+#from src.mceliece.LDPC import LDPC
+#from src.mceliece.McEliece import McEliece
+from src.mcelieceH84.mc_core import *
 
 
 if __name__ == '__main__':
@@ -238,8 +239,8 @@ if __name__ == '__main__':
         tPriv.decryptFile(arguments.file)
         print("All processes are done")
         
-        with open(arguments.file, "r") as fp:
-            content = fp.read()
+        # with open(arguments.file, "r") as fp:
+            # content = fp.read()
     elif save_flag:
         log_print("Archive saved succesfully")
     else:
