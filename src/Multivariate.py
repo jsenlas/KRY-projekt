@@ -21,8 +21,8 @@ class Multivariate():
 
     def sign(self):
         """ signing """
-        # Initialise keygen object and generate keys
-        
+
+        # Initialise keygen object and generate keys and save them to "out folder"
         myKeyObject = cryptovinaigrette.rainbowKeygen(save="./out/")
 
         # signing
@@ -34,7 +34,8 @@ class Multivariate():
         signatureList=[]
         with open(signature, "r") as fp:  # read signature file
             log_print("Making list from signature file...")
-            signatureList = [int(line.strip()) for line in fp]
+            # make list again because the external library use signature as list 
+            signatureList = [int(line.strip()) for line in fp] 
         if cryptovinaigrette.rainbowKeygen.verify('./out/cvPub.pub', signatureList, self.filename):
             return 1
         return 0

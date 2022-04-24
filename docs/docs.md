@@ -1,19 +1,25 @@
 ## General commands
 
-For each of our algorithms we use different commands in format *algoritm*_*action* as can be seen bellow.
+For each of our algorithms we use different commands in format *algoritm*_*action* as can be seen bellow.  
 
 ```text
-usage: kry.py [-h] [--log] [--onedir] {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify} ...
+usage: kry.py [-h] [--log] [--onedir]
+              {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify,sign_multivariate,verify_multivariate,encrypt_mceliece,decrypt_mceliece}
+              ...
 
 positional arguments:
-  {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify}
+  {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify,sign_multivariate,verify_multivariate,encrypt_mceliece,decrypt_mceliece}
                         cipher/decipher
     ntru_g              Generating key
     ntru_e              Encrypting message
     ntru_d              Decrypting message
     sphinx_sign         Signing a file
-    sphinx_verify       Verifying file signature3243
-    
+    sphinx_verify       Verifying file signature
+    sign_multivariate   Signing a file
+    verify_multivariate
+                        Verifying file signature
+    encrypt_mceliece    Encrypt file using McEliece.
+    decrypt_mceliece    Decrypt file using McEliece.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -22,7 +28,85 @@ optional arguments:
 
 KRY 2022 project - cipher/decipher or sign a file.
 
+
 ```
+
+## SPHINX+ usage
+
+### Sign
+```text
+usage: kry.py sphinx_sign [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+
+### Verify
+
+```text
+usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+
+positional arguments:
+  file                  Filename
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -k PUBLIC_KEY, --public_key PUBLIC_KEY
+                        File containing public key.
+  -s SIGNATURE, --signature SIGNATURE
+                        File containing signature.
+
+```
+
+
+## Examples
+
+You can run this test by running ```make test_sphinx```. It will sign the file and then verify it. To show the functionality we change the original file and try to run verification again with (ecpected) unsuccessful result.
+
+Signing a file.
+```text
+python3 kry.py --onedir sphinx_sign loremipsum.txt
+```
+
+And verifying signature.
+```text
+python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
+```
+
+
+## SPHINX+ usage
+
+### Sign
+```text
+usage: kry.py sign_multivariate [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+
+### Verify
+```text
+usage: kry.py verify_multivariate [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+
+positional arguments:
+  file                  Filename
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -k PUBLIC_KEY, --public_key PUBLIC_KEY
+                        File containing public key.
+  -s SIGNATURE, --signature SIGNATURE
+                        File containing signature.
+```
+
 
 ## NTRU usage
 
@@ -43,69 +127,29 @@ optional arguments:
 
 ### Encrypt
 ```text
-usage: kry.py ntru_e [-h] public_key message
+usage: kry.py ntru_e [-h] public_key encrypted_file message
 
 positional arguments:
   public_key
+  encrypted_file
   message
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help      show this help message and exit
+
 ```
 
 ### Decrypt
 ```text
-usage: kry.py ntru_d [-h] private_key encrypted_message
+usage: kry.py ntru_d [-h] private_key encrypted_message decrypted_file
 
 positional arguments:
   private_key
   encrypted_message
+  decrypted_file
 
 optional arguments:
   -h, --help         show this help message and exit
 
-```
 
-## SPHINX+ usage
-### Sign
-```text
-usage: kry.py sphinx_sign [-h] file
-
-positional arguments:
-  file        Filename
-
-optional arguments:
-  -h, --help  show this help message and exit
-```
-
-
-### Verify
-
-```text
-usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-n SIGNATURE] file
-
-positional arguments:
-  file                  Filename
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -k PUBLIC_KEY, --public_key PUBLIC_KEY
-                        File containing public key.
-  -n SIGNATURE, --signature SIGNATURE
-                        File containing signature.
-```
-
-
-## Examples
-
-You can run this test by running ```make test_sphinx```. It will sign the file and then verify it. To show the functionality we change the original file and try to run verification again with (ecpected) unsuccessful result.
-
-Signing a file.
-```text
-python3 kry.py --onedir sphinx_sign loremipsum.txt
-```
-
-And verifying signature.
-```text
-python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
 ```
