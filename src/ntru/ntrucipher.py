@@ -1,3 +1,9 @@
+""" Encryption and decryption using postquantum cryptography algorithm NTRU
+
+    Author: Thao Le
+    email: 243759@vutbr.cz
+"""
+
 from src.ntru.mathutils import *
 import numpy as np
 from sympy.abc import x

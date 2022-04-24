@@ -1,3 +1,9 @@
+""" Encryption and decryption using postquantum cryptography algorithm NTRU
+    Mathematical utilities functions for NTRU
+    Author: Thao Le
+    email: 243759@vutbr.cz
+"""
+
 import math
 from sympy import GF, invert
 import logging
@@ -7,24 +13,24 @@ from sympy import ZZ, Poly
 
 log = logging.getLogger("mathutils")
 
-
+# Defining if a number is prime or not
 def is_prime(n):
     for i in range(2, int(n ** 0.5) + 1):
         if n % i == 0:
             return False
     return True
 
-
+# Defining if a number is a power of 2
 def is_2_power(n):
     return n != 0 and (n & (n - 1) == 0)
 
-
+# Create a random polynom
 def random_poly(length, d, neg_ones_diff=0):
     return Poly(np.random.permutation(
         np.concatenate((np.zeros(length - 2 * d - neg_ones_diff), np.ones(d), -np.ones(d + neg_ones_diff)))),
         x).set_domain(ZZ)
 
-
+# Inverting a polynom
 def invert_poly(f_poly, R_poly, p):
     inv_poly = None
     if is_prime(p):

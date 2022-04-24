@@ -1,4 +1,5 @@
 """ Cryptography project VUT FEKT 2022
+    Data security using postquantumn algorithms
 Authors:
     Thao Le
     Jakub Sencak
@@ -194,6 +195,7 @@ if __name__ == '__main__':
         else:
             log_print("Signature verification UNSUCCESSFUL.")
 
+    # NTRU regime
     elif "ntru_g" in sys.argv:
         N,p,q = arguments.parameters
         generate(N,p,q, arguments.private_file, arguments.public_file)
@@ -206,11 +208,6 @@ if __name__ == '__main__':
         log_print(f"Saving encrypted message to {arguments.encrypted_file}")
         with open(f"ntru_file/{arguments.encrypted_file}", "wb") as fp:
             fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
-
-            # with open(f"{output_files_path}/{arguments.file}.signature", "wb") as fp:
-            #     log_print("Saving signature to file...")
-            #     fp.write(signature)
-
     elif "ntru_d" in sys.argv:
         log_print(f"Opening encrypted message in file {arguments.encrypted_message}")
         with open(f"ntru_file/{arguments.encrypted_message}", "rb") as fp:

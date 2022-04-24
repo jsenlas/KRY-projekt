@@ -1,3 +1,9 @@
+""" Encryption and decryption using postquantum cryptography algorithm NTRU
+    Main functions for key generation, encryption and decryption for NTRU
+    Author: Thao Le
+    email: 243759@vutbr.cz
+"""
+
 from src.ntru.ntrucipher import NtruCipher
 import numpy as np
 from src.ntru.mathutils import random_poly
