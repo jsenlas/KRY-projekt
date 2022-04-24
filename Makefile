@@ -59,12 +59,12 @@ clear_log:
 NTRU:
 	@echo "TEST START"
 	@echo "In this test, we create a pair of keys and then encrypt/ decrypt the zprava.txt file with them"
-	@echo "Key generation with parameter N = 167, p = 3, q = 32"
+	@echo "Key generation with parameter N = 167, p = 3, q = 32. The generated keys will be saved in ./out/ntru_key"
 	python kry.py ntru_g -p 167 3 32 private public
-	@echo "Enrcyption"
+	@echo "Enrcyption. The encrypted file will be saved in the ./ntru_file directory. The log will be saved in ./out/ntru_log"
 	python kry.py ntru_e public.npz ntru_encrypted.txt zprava.txt
-	@echo "Decryption"
-	python kry.py ntru_d private.npz ntru_encrypted.txt ntru_decrypted.txt  
+	@echo "Decryption. The decrypted file will be saved in the ./ntru_file directory. The log will be saved in ./out/ntru_log"
+	python kry.py ntru_d private.npz ntru_encrypted.txt ntru_decrypted.txt
 
 
 pylint:
