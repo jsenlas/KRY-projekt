@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e85221e2-493e-4344-90a9-2727f902f99c" name="Changes" comment="Ntru functions seperated from kry.py. They are now saved in ntrumain.py">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kry.py" beforeDir="false" afterPath="$PROJECT_DIR$/kry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ntru/mathutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ntru/mathutils.py" afterDir="false" />
+    <list default="true" id="e85221e2-493e-4344-90a9-2727f902f99c" name="Changes" comment="Comments for NTRU added">
       <change beforePath="$PROJECT_DIR$/src/ntru/ntrucipher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ntru/ntrucipher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ntru/ntrumain.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ntru/ntrumain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ntru/padding.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ntru/padding.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +73,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650799248456</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Comments for NTRU added">
+      <created>1650801199155</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1650801199155</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,6 +97,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="working progress" />
     <MESSAGE value="Ntru functions seperated from kry.py. They are now saved in ntrumain.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ntru functions seperated from kry.py. They are now saved in ntrumain.py" />
+    <MESSAGE value="Comments for NTRU added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comments for NTRU added" />
   </component>
 </project>

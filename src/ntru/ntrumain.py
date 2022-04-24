@@ -13,10 +13,9 @@ from src.ntru.padding import *
 from sympy.abc import x
 from src.utilities import log_print
 
-
+# Key generation and saving to numpy's .npz format
 def generate(N, p, q, priv_key_file, pub_key_file):
     if not isprime(N):
-        # log_print("N must be a prime")
         raise OptionException("N must be a prime")
     if math.gcd(p,q) != 1:
         raise OptionException("p and q must be co-prime")
@@ -29,7 +28,7 @@ def generate(N, p, q, priv_key_file, pub_key_file):
     np.savez_compressed(f"out/ntru_key/{pub_key_file}", N=N, p=p, q=q, h=h)
     log_print("Public key saved to {} file".format(pub_key_file))
 
-
+# Encrytion of message using public key
 def encrypt(pub_key_file, input_arr, bin_output=True, block=True):
     input_arr = np.unpackbits(np.frombuffer(input_arr, dtype=np.uint8))
     input_arr = np.trim_zeros(input_arr, 'b')
@@ -62,7 +61,7 @@ def encrypt(pub_key_file, input_arr, bin_output=True, block=True):
         output = [[0 if c == '0' else 1 for c in np.binary_repr(n, width=k)] for n in output]
     return np.array(output).flatten()
 
-
+# Decryption of message using private key
 def decrypt(priv_key_file, input_arr, bin_input=True, block=True):
     input_arr = np.unpackbits(np.frombuffer(input_arr, dtype=np.uint8))
     input_arr = np.trim_zeros(input_arr, 'b')

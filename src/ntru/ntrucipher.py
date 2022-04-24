@@ -72,6 +72,7 @@ class NtruCipher:
         self.h_poly = (h_before_mod % self.R_poly).trunc(self.q)
         log.info("h: {}".format(self.h_poly))
 
+    # Encryption method
     def encrypt(self, msg_poly, rand_poly):
         log.info("r: {}".format(rand_poly))
         log.info("r coeffs: {}".format(Counter(rand_poly.coeffs())))
@@ -79,6 +80,7 @@ class NtruCipher:
         log.info("h: {}".format(self.h_poly))
         return (((rand_poly * self.h_poly).trunc(self.q) + msg_poly) % self.R_poly).trunc(self.q)
 
+    # Decryption method
     def decrypt(self, msg_poly):
         log.info("f: {}".format(self.f_poly))
         log.info("f_p: {}".format(self.f_p_poly))
