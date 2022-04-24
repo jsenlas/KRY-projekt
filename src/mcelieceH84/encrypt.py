@@ -1,4 +1,4 @@
-# Encryption
+# Encryption and generating key
 from mc_core import *
 import sys
 
