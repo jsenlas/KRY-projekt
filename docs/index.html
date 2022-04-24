@@ -256,40 +256,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ntru-usage" class="md-nav__link">
-    NTRU usage
-  </a>
-  
-    <nav class="md-nav" aria-label="NTRU usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#generate" class="md-nav__link">
-    Generate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encrypt" class="md-nav__link">
-    Encrypt
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decrypt" class="md-nav__link">
-    Decrypt
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#sphinx-usage" class="md-nav__link">
     SPHINX+ usage
   </a>
@@ -320,6 +286,67 @@
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sphinx-usage_1" class="md-nav__link">
+    SPHINX+ usage
+  </a>
+  
+    <nav class="md-nav" aria-label="SPHINX+ usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign_1" class="md-nav__link">
+    Sign
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify_1" class="md-nav__link">
+    Verify
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ntru-usage" class="md-nav__link">
+    NTRU usage
+  </a>
+  
+    <nav class="md-nav" aria-label="NTRU usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    Generate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encrypt" class="md-nav__link">
+    Encrypt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decrypt" class="md-nav__link">
+    Decrypt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -382,17 +409,24 @@
   <h1>Documentation</h1>
 
 <h2 id="general-commands">General commands</h2>
-<p>For each of our algorithms we use different commands in format <em>algoritm</em>_<em>action</em> as can be seen bellow.</p>
-<pre><code class="language-text">usage: kry.py [-h] [--log] [--onedir] {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify} ...
+<p>For each of our algorithms we use different commands in format <em>algoritm</em>_<em>action</em> as can be seen bellow.  </p>
+<pre><code class="language-text">usage: kry.py [-h] [--log] [--onedir]
+              {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify,sign_multivariate,verify_multivariate,encrypt_mceliece,decrypt_mceliece}
+              ...
 
 positional arguments:
-  {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify}
+  {ntru_g,ntru_e,ntru_d,sphinx_sign,sphinx_verify,sign_multivariate,verify_multivariate,encrypt_mceliece,decrypt_mceliece}
                         cipher/decipher
     ntru_g              Generating key
     ntru_e              Encrypting message
     ntru_d              Decrypting message
     sphinx_sign         Signing a file
     sphinx_verify       Verifying file signature
+    sign_multivariate   Signing a file
+    verify_multivariate
+                        Verifying file signature
+    encrypt_mceliece    Encrypt file using McEliece.
+    decrypt_mceliece    Decrypt file using McEliece.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -401,6 +435,62 @@ optional arguments:
 
 KRY 2022 project - cipher/decipher or sign a file.
 
+
+</code></pre>
+<h2 id="sphinx-usage">SPHINX+ usage</h2>
+<h3 id="sign">Sign</h3>
+<pre><code class="language-text">usage: kry.py sphinx_sign [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
+</code></pre>
+<h3 id="verify">Verify</h3>
+<pre><code class="language-text">usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+
+positional arguments:
+  file                  Filename
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -k PUBLIC_KEY, --public_key PUBLIC_KEY
+                        File containing public key.
+  -s SIGNATURE, --signature SIGNATURE
+                        File containing signature.
+
+</code></pre>
+<h2 id="examples">Examples</h2>
+<p>You can run this test by running <code>make test_sphinx</code>. It will sign the file and then verify it. To show the functionality we change the original file and try to run verification again with (ecpected) unsuccessful result.</p>
+<p>Signing a file.</p>
+<pre><code class="language-text">python3 kry.py --onedir sphinx_sign loremipsum.txt
+</code></pre>
+<p>And verifying signature.</p>
+<pre><code class="language-text">python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
+</code></pre>
+<h2 id="sphinx-usage_1">SPHINX+ usage</h2>
+<h3 id="sign_1">Sign</h3>
+<pre><code class="language-text">usage: kry.py sign_multivariate [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
+</code></pre>
+<h3 id="verify_1">Verify</h3>
+<pre><code class="language-text">usage: kry.py verify_multivariate [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+
+positional arguments:
+  file                  Filename
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -k PUBLIC_KEY, --public_key PUBLIC_KEY
+                        File containing public key.
+  -s SIGNATURE, --signature SIGNATURE
+                        File containing signature.
 </code></pre>
 <h2 id="ntru-usage">NTRU usage</h2>
 <h3 id="generate">Generate</h3>
@@ -417,56 +507,29 @@ optional arguments:
 
 </code></pre>
 <h3 id="encrypt">Encrypt</h3>
-<pre><code class="language-text">usage: kry.py ntru_e [-h] public_key message
+<pre><code class="language-text">usage: kry.py ntru_e [-h] public_key encrypted_file message
 
 positional arguments:
   public_key
+  encrypted_file
   message
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help      show this help message and exit
+
 </code></pre>
 <h3 id="decrypt">Decrypt</h3>
-<pre><code class="language-text">usage: kry.py ntru_d [-h] private_key encrypted_message
+<pre><code class="language-text">usage: kry.py ntru_d [-h] private_key encrypted_message decrypted_file
 
 positional arguments:
   private_key
   encrypted_message
+  decrypted_file
 
 optional arguments:
   -h, --help         show this help message and exit
 
-</code></pre>
-<h2 id="sphinx-usage">SPHINX+ usage</h2>
-<h3 id="sign">Sign</h3>
-<pre><code class="language-text">usage: kry.py sphinx_sign [-h] file
 
-positional arguments:
-  file        Filename
-
-optional arguments:
-  -h, --help  show this help message and exit
-</code></pre>
-<h3 id="verify">Verify</h3>
-<pre><code class="language-text">usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-n SIGNATURE] file
-
-positional arguments:
-  file                  Filename
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -k PUBLIC_KEY, --public_key PUBLIC_KEY
-                        File containing public key.
-  -n SIGNATURE, --signature SIGNATURE
-                        File containing signature.
-</code></pre>
-<h2 id="examples">Examples</h2>
-<p>You can run this test by running <code>make test_sphinx</code>. It will sign the file and then verify it. To show the functionality we change the original file and try to run verification again with (ecpected) unsuccessful result.</p>
-<p>Signing a file.</p>
-<pre><code class="language-text">python3 kry.py --onedir sphinx_sign loremipsum.txt
-</code></pre>
-<p>And verifying signature.</p>
-<pre><code class="language-text">python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
 </code></pre>
 
               

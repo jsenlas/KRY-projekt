@@ -246,8 +246,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    Setup
+  <a href="#setup-and-dependencies" class="md-nav__link">
+    Setup and dependencies
   </a>
   
 </li>
@@ -267,8 +267,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quality" class="md-nav__link">
-    Quality
+  <a href="#quality-of-code" class="md-nav__link">
+    Quality of code
   </a>
   
 </li>
@@ -360,20 +360,34 @@
 <p>We will encipher/decipher or sign a file by a post quantum algorithm. </p>
 <h2 id="development">Development</h2>
 <p>For making it easier for development we created a simple Makefile that let's you do first setup, installation, cleanup and meassuring quality of code.</p>
-<h3 id="setup">Setup</h3>
-<pre><code class="language-text">python3 -m venv env            # create virtual environment - run only once
-source ./env/bin/activate      # go to virtual environment
+<h3 id="setup-and-dependencies">Setup and dependencies</h3>
+<pre><code>python3 -m venv env               # create virtual environment - run only once
+source ./env/bin/activate         # go to virtual environment
 pip3 install -r requirements.txt  # install python libraries
 </code></pre>
+<p>Make sure that you have updated <code>pip3</code> to the <strong>latest version</strong>. </p>
+<pre><code>python3 -m pip install --upgrade pip
+</code></pre>
+<p><strong>PySPX</strong> package requires installed <em>openssl</em>. E.g. <code>sudo apt -y install libssl-dev</code>.</p>
+<p><strong>Multivariette</strong> package requires <a href="https://github.com/aditisrinivas97/Crypto-Vinaigrette">Crypto-Vinaigrette</a> repository downloaded into src/ directory.</p>
+<pre><code>cd src/
+git clone https://github.com/aditisrinivas97/Crypto-Vinaigrette
+cd Crypto-Vinaigrette
+python3 setup.py install
+cd ../..
+</code></pre>
 <h3 id="example-run">Example run</h3>
-<p>Sign a file using SPHINX+.</p>
-<pre><code class="language-text">make sign
+<pre><code>make sign_sphinx       # Sign a file using SPHINX+.
+
+make sign_code_based   # Sign a file using code-based algorithm
+
+make sign_multivariate # Sign a file using multivariate
 </code></pre>
 <h3 id="cleanup">Cleanup</h3>
 <pre><code class="language-text">make remove_out  # removes all files in ./out directory
-make clear_log  # clears content from logfile kry_log.log
+make clear_log   # clears content from logfile kry_log.log
 </code></pre>
-<h3 id="quality">Quality</h3>
+<h3 id="quality-of-code">Quality of code</h3>
 <p>To measure quality of code we use pylint code checker.</p>
 <pre><code class="language-text">make pylint
 </code></pre>
@@ -382,7 +396,7 @@ make clear_log  # clears content from logfile kry_log.log
 <li>10/10 is the goal. </li>
 <li>8/10 at least please :D</li>
 </ul>
-<p><strong>This checks every python file and prints out collective score I <em>SUGGEST</em> to run</strong> <code>pylint yourfile.py</code> <strong>for you to know score of your file and keep it above 8.0</strong></p>
+<p><strong>This checks every python file and prints out collective score I <em>SUGGEST</em> to run</strong> <code>pylint yourfile.py</code> <strong>for you to know score of your file and keep it above 8.0</strong>.</p>
 <h3 id="display-documentation">Display documentation</h3>
 <p>To display documentation you can run it localy and see in your browser using <code>make documentation</code> or just simply access it on our <a href="https://jsenlas.github.io/KRY-projekt/">Github Pages</a></p>
 <p>For publishing local changes to the repo run <code>make gh_publish</code>. You will need ssh access to the repo to do this. Changes are applied pretty fast.</p>
