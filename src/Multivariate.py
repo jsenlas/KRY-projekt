@@ -5,9 +5,9 @@
     email: xpodlu01@vutbr.cz
 """
 
-from cryptovinaigrette import cryptovinaigrette
+# from cryptovinaigrette import cryptovinaigrette
 
-import pyspx.shake256_128f as pysphinx
+# import pyspx.shake256_128f as pysphinx
 import numpy as np
 from src.utilities import log_print
 

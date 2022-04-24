@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e85221e2-493e-4344-90a9-2727f902f99c" name="Changes" comment="working progress">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ciphered_text.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kry.py" beforeDir="false" afterPath="$PROJECT_DIR$/kry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kry_log.log" beforeDir="false" afterPath="$PROJECT_DIR$/kry_log.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Multivariate.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Multivariate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_based_signature.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_based_signature.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,15 +77,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="working progress" />
     <option name="LAST_COMMIT_MESSAGE" value="working progress" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/ntru/ntrucipher.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

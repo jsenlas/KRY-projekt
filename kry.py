@@ -39,9 +39,9 @@ def generate(N, p, q, priv_key_file, pub_key_file):
     ntru.generate_random_keys()
     h = np.array(ntru.h_poly.all_coeffs()[::-1])
     f, f_p = ntru.f_poly.all_coeffs()[::-1], ntru.f_p_poly.all_coeffs()[::-1]
-    np.savez_compressed(priv_key_file, N=N, p=p, q=q, f=f, f_p=f_p)
+    np.savez_compressed(f"out/ntru_key/{priv_key_file}", N=N, p=p, q=q, f=f, f_p=f_p)
     log_print("Private key saved to {} file".format(priv_key_file))
-    np.savez_compressed(pub_key_file, N=N, p=p, q=q, h=h)
+    np.savez_compressed(f"out/ntru_key/{pub_key_file}", N=N, p=p, q=q, h=h)
     log_print("Public key saved to {} file".format(pub_key_file))
 
 
@@ -142,18 +142,21 @@ if __name__ == '__main__':
     g_parser.add_argument("-p", "--parameters", action="store", nargs=3, type=int, help="N p q")
     g_parser.add_argument("private_file", type=str, help="Private key Filename")
     g_parser.add_argument("public_file", type=str, help="Public key Filename")
+    # g_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
     e_parser = sub_parser.add_parser("ntru_e", help="Encrypting message")
     e_parser.add_argument("public_key", type=str)
     e_parser.add_argument("encrypted_file", type=str)
     e_parser.add_argument("message", type=str)
+    # e_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
     d_parser = sub_parser.add_parser("ntru_d", help="Decrypting message")
     d_parser.add_argument("private_key", type=str)
     d_parser.add_argument("encrypted_message", type=str)
     d_parser.add_argument("decrypted_file", type=str)
+    # d_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
     sphinx_sign_parser = sub_parser.add_parser("sphinx_sign", help='Signing a file')
@@ -197,13 +200,18 @@ if __name__ == '__main__':
     else:
         # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
         output_files_path = f"./out"
-        if "ntru_g" not in sys.argv:
-            output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
+        # if "ntru_g" not in sys.argv:
+        #     output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
     
     # print(output_files_path)
 
     """ Setup logging """
     log_filename = "kry_log.log" # default
+    if "ntru_e" or "ntru_d" in sys.argv:
+        log_filename = f"out/ntru_log/log_{start_time.replace(':', '_')}"
+
+
+
     create_directory_flag = True
     if arguments.log:
         if "sphinx_verify" in sys.argv:
@@ -217,8 +225,8 @@ if __name__ == '__main__':
         except FileExistsError:
             pass
 
-    # print("LOGFILENAME", log_filename)
-    #logging.basicConfig(filename=log_filename, encoding='utf-8', level=logging.DEBUG)
+    print("LOGFILENAME", log_filename)
+    logging.basicConfig(filename=log_filename, encoding='utf-8', level=logging.DEBUG)
 
     # Log start, deliminer, time, file and size
     log_print("#################################################")
@@ -291,19 +299,23 @@ if __name__ == '__main__':
         with open(arguments.message, "rb") as fp:
             message = fp.read()
         log_print(f"Encrypting using public key {arguments.public_key}")
-        output = encrypt(arguments.public_key, message)
+        output = encrypt(f"out/ntru_key/{arguments.public_key}", message)
         log_print(f"Saving encrypted message to {arguments.encrypted_file}")
-        with open(arguments.encrypted_file, "wb") as fp:
+        with open(f"ntru_file/{arguments.encrypted_file}", "wb") as fp:
             fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
+
+            # with open(f"{output_files_path}/{arguments.file}.signature", "wb") as fp:
+            #     log_print("Saving signature to file...")
+            #     fp.write(signature)
 
     elif "ntru_d" in sys.argv:
         log_print(f"Opening encrypted message in file {arguments.encrypted_message}")
-        with open(arguments.encrypted_message, "rb") as fp:
+        with open(f"ntru_file/{arguments.encrypted_message}", "rb") as fp:
             message = fp.read()
         log_print(f"Decrypting using {arguments.private_key}")
-        output = decrypt(arguments.private_key, message)
+        output = decrypt(f"out/ntru_key/{arguments.private_key}", message)
         log_print(f"Saving output into {arguments.decrypted_file}")
-        with open(arguments.decrypted_file, "wb") as fp:
+        with open(f"ntru_file/{arguments.decrypted_file}", "wb") as fp:
             fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
 
     elif "encrypt_mceliece" in sys.argv:
