@@ -89,7 +89,9 @@ if __name__ == '__main__':
 
     ##################################################
     m_decrypt_parser = sub_parser.add_parser("decrypt_mceliece", help='Decrypt file using McEliece.')
-    m_decrypt_parser.add_argument("file", type=str, help="Filename")
+    m_decrypt_parser.add_argument("-k", "--private_key", action="store", help="File containing private key.")
+    m_decrypt_parser.add_argument("file", type=str, help="Ecyphered file")
+
 
     arguments = parser.parse_args()
 
@@ -219,31 +221,24 @@ if __name__ == '__main__':
             fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
 
     elif "encrypt_mceliece" in sys.argv:
-        with open(arguments.file, "r") as fp:
-            content = fp.read()
-            print(content)
-        
-            n = 300
-            d_v = 6
-            d_c = 10
-
-            ldpc = LDPC.from_params(n, d_v, d_c)
-            
-            word = np.random.randint(2, size=ldpc.getG().shape[0])
-            print("word:", word)
-
-            crypto = McEliece.from_linear_code(ldpc, 12)
-
-            encrypted = crypto.encrypt(word)
-            print("encrypted:", encrypted)
-            decrypted = crypto.decrypt(encrypted)
-            print("decrypted:", decrypted)
-
-            assert (word == decrypted).all()
+        print("Generate private key")
+        tPriv = privateKeyH84()
+        print("Generate public key")
+        tPub = publicKeyH84(tPriv.makeGPrime())
+        print("Processing encryption")
+        tPub.encryptFile(arguments.file)
+        tPriv.writeKeyToFile(arguments.file + ".priv")
+        tPub.writeKeyToFile(arguments.file + ".pub")
+        print("Generate key and encryption finished")
 
     elif "decrypt_mceliece" in sys.argv:
-        with open(arguments.file, "r") as fp:
-            content = fp.read()
+        print("Using private key to decrypt")
+        tPriv = privateKeyH84()
+        tPriv.readKeyFromFile(arguments.private_key)
+        print("Processing decryption:")
+        tPriv.decryptFile(arguments.file)
+        print("All processes are done")
+        
     else:
         log_print("You are wrong...")
 
