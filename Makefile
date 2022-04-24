@@ -8,6 +8,7 @@ install:
 	mkdir out/ntru_key
 	mkdir out/ntru_log
 	@echo "INSTALLING REQUIREMENTS..."
+	pip3 install numpy
 	pip3 install -r requirements.txt
 
 help:
@@ -59,6 +60,12 @@ ntru_test:
 	python kry.py ntru_e public.npz ntru_encrypted.txt zprava.txt
 	@echo "Decryption. The decrypted file will be saved in the ./ntru_file directory. The log will be saved in ./out/ntru_log"
 	python kry.py ntru_d private.npz ntru_encrypted.txt ntru_decrypted.txt
+
+mceliece_H84:
+	@echo "Generating key and encryption"
+	python3 kry.py encrypt_mceliece loremipsum.txt
+	@echo "Decryption"
+	python3 kry.py decrypt_mceliece loremipsum.txt.priv loremipsum.txt.ctxt
 
 remove_out:
 	rm -rf out/*

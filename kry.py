@@ -108,11 +108,12 @@ if __name__ == '__main__':
         output_files_path = f"./out"
 
     """ Setup logging """
-    log_filename = "kry_log.log" # default
-    if "ntru_e" or "ntru_d" in sys.argv:
+    if "ntru_e" in sys.argv or "ntru_d" in sys.argv:
         log_filename = f"out/ntru_log/log_{start_time.replace(':', '_')}"
     else:
         log_filename = f"out/log_{start_time.replace(':', '_')}"
+    if arguments.log:
+        log_filename = "kry_log.log" # default
 
     create_directory_flag = True
     if arguments.log:
@@ -217,28 +218,27 @@ if __name__ == '__main__':
             fp.write(np.packbits(np.array(output).astype(np.int)).tobytes())
 
     elif "encrypt_mceliece" in sys.argv:
-        print("Generate private key")
+        log_print("Generate private key")
         tPriv = privateKeyH84()
-        print("Generate public key")
+        log_print("Generate public key")
         tPub = publicKeyH84(tPriv.makeGPrime())
-        print("Processing encryption")
+        log_print("Processing encryption")
         tPub.encryptFile(arguments.file)
-        tPriv.writeKeyToFile(arguments.file + ".priv")
-        tPub.writeKeyToFile(arguments.file + ".pub")
-        print("Generate key and encryption finished")
+        tPriv.writeKeyToFile("out/" + arguments.file + ".priv")
+        tPub.writeKeyToFile("out/" + arguments.file + ".pub")
+        log_print("Generate key and encryption finished")
 
     elif "decrypt_mceliece" in sys.argv:
-        print("Using private key to decrypt")
+        log_print("Using private key to decrypt")
         tPriv = privateKeyH84()
-        tPriv.readKeyFromFile(arguments.private_key)
-        print("Processing decryption:")
+        tPriv.readKeyFromFile("out/" + arguments.private_key)
+        log_print("Processing decryption:")
         tPriv.decryptFile(arguments.file)
-        print("All processes are done")
-        
-        # with open(arguments.file, "r") as fp:
-            # content = fp.read()
+        log_print("All processes are done")
+
     elif save_flag:
         log_print("Archive saved succesfully")
+
     else:
         log_print("Invalid usage")
         parser.print_usage()

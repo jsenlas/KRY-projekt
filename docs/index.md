@@ -37,6 +37,14 @@ Make sure that you have updated ```pip3``` to the **latest version**.
 
     make sign_multivariate # Sign a file using multivariate
 
+### Save output
+
+Save output files securely into ```.7z``` format:
+    
+    make save
+
+To access files unzip using ```7z``` with password **PASSWORD**. 
+
 ### Cleanup
 
 ```text
