@@ -173,7 +173,7 @@ if __name__ == '__main__':
         multivariate = Multivariate(arguments.file)
         print(arguments.signature)
         if multivariate.verify(arguments.signature):
-            log_print("Signature successfuly veriefied.")
+            log_print("Signature successfuly verified.")
         else:
             log_print("Signature verification UNSUCCESSFUL.")
 
@@ -182,7 +182,7 @@ if __name__ == '__main__':
         log_print("Algorithm: SPHINX+")
         psx = PySPHINXplus(arguments.file)
         if psx.verify(arguments.signature, arguments.public_key):
-            log_print("Signature successfuly veriefied.")
+            log_print("Signature successfuly verified.")
         else:
             log_print("Signature verification UNSUCCESSFUL.")
 

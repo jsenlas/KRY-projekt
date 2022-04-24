@@ -4,7 +4,7 @@
     email: xsenca00@vutbr.cz
 """
 
-# import pyspx.shake256_128f as pysphinx
+import pyspx.shake256_128f as pysphinx
 import numpy as np
 from src.utilities import log_print
 
