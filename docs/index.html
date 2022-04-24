@@ -290,11 +290,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sphinx-usage_1" class="md-nav__link">
-    SPHINX+ usage
+  <a href="#multivariate-usage" class="md-nav__link">
+    Multivariate usage
   </a>
   
-    <nav class="md-nav" aria-label="SPHINX+ usage">
+    <nav class="md-nav" aria-label="Multivariate usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -340,6 +340,33 @@
         
           <li class="md-nav__item">
   <a href="#decrypt" class="md-nav__link">
+    Decrypt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mceliece-cryptosystem" class="md-nav__link">
+    McEliece cryptosystem
+  </a>
+  
+    <nav class="md-nav" aria-label="McEliece cryptosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encrypt_1" class="md-nav__link">
+    Encrypt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decrypt_1" class="md-nav__link">
     Decrypt
   </a>
   
@@ -448,18 +475,15 @@ optional arguments:
   -h, --help  show this help message and exit
 </code></pre>
 <h3 id="verify">Verify</h3>
-<pre><code class="language-text">usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+<pre><code class="language-text">usage: kry.py sphinx_verify [-h] public_key signature file
 
 positional arguments:
-  file                  Filename
+  public_key  File containing public key.
+  signature   File containing signature.
+  file        Filename
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -k PUBLIC_KEY, --public_key PUBLIC_KEY
-                        File containing public key.
-  -s SIGNATURE, --signature SIGNATURE
-                        File containing signature.
-
+  -h, --help  show this help message and exit
 </code></pre>
 <h2 id="examples">Examples</h2>
 <p>You can run this test by running <code>make test_sphinx</code>. It will sign the file and then verify it. To show the functionality we change the original file and try to run verification again with (ecpected) unsuccessful result.</p>
@@ -469,7 +493,7 @@ optional arguments:
 <p>And verifying signature.</p>
 <pre><code class="language-text">python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
 </code></pre>
-<h2 id="sphinx-usage_1">SPHINX+ usage</h2>
+<h2 id="multivariate-usage">Multivariate usage</h2>
 <h3 id="sign_1">Sign</h3>
 <pre><code class="language-text">usage: kry.py sign_multivariate [-h] file
 
@@ -480,31 +504,27 @@ optional arguments:
   -h, --help  show this help message and exit
 </code></pre>
 <h3 id="verify_1">Verify</h3>
-<pre><code class="language-text">usage: kry.py verify_multivariate [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+<pre><code class="language-text">usage: kry.py verify_multivariate [-h] public_key signature file
 
 positional arguments:
-  file                  Filename
+  public_key  File containing public key.
+  signature   File containing signature.
+  file        Filename
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -k PUBLIC_KEY, --public_key PUBLIC_KEY
-                        File containing public key.
-  -s SIGNATURE, --signature SIGNATURE
-                        File containing signature.
+  -h, --help  show this help message and exit
 </code></pre>
 <h2 id="ntru-usage">NTRU usage</h2>
 <h3 id="generate">Generate</h3>
-<pre><code class="language-text">usage: kry.py ntru_g [-h] [-p PARAMETERS PARAMETERS PARAMETERS] private_file public_file
+<pre><code class="language-text">usage: kry.py ntru_g [-h] parameters parameters parameters private_file public_file
 
 positional arguments:
-  private_file          Private key Filename
-  public_file           Public key Filename
+  parameters    N p q
+  private_file  Private key Filename
+  public_file   Public key Filename
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -p PARAMETERS PARAMETERS PARAMETERS, --parameters PARAMETERS PARAMETERS PARAMETERS
-                        N p q
-
+  -h, --help    show this help message and exit
 </code></pre>
 <h3 id="encrypt">Encrypt</h3>
 <pre><code class="language-text">usage: kry.py ntru_e [-h] public_key encrypted_file message
@@ -516,20 +536,36 @@ positional arguments:
 
 optional arguments:
   -h, --help      show this help message and exit
-
 </code></pre>
 <h3 id="decrypt">Decrypt</h3>
 <pre><code class="language-text">usage: kry.py ntru_d [-h] private_key encrypted_message decrypted_file
 
 positional arguments:
-  private_key
-  encrypted_message
-  decrypted_file
+  private_key        File containing private key
+  encrypted_message  File containing encrypted message
+  decrypted_file     Output file
 
 optional arguments:
   -h, --help         show this help message and exit
+</code></pre>
+<h2 id="mceliece-cryptosystem">McEliece cryptosystem</h2>
+<h3 id="encrypt_1">Encrypt</h3>
+<pre><code class="language-text">usage: kry.py encrypt_mceliece [-h] file
 
+positional arguments:
+  file        Filename
 
+optional arguments:
+  -h, --help  show this help message and exit
+</code></pre>
+<h3 id="decrypt_1">Decrypt</h3>
+<pre><code class="language-text">usage: kry.py decrypt_mceliece [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
 </code></pre>
 
               
