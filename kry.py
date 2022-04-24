@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
     ##################################################
     m_decrypt_parser = sub_parser.add_parser("decrypt_mceliece", help='Decrypt file using McEliece.')
-    m_decrypt_parser.add_argument("-k", "--private_key", action="store", help="File containing private key.")
+    m_decrypt_parser.add_argument("private_key", type=str, help="File containing private key.")
     m_decrypt_parser.add_argument("file", type=str, help="Ecyphered file")
 
 

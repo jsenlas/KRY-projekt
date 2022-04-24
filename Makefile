@@ -14,10 +14,6 @@ install:
 help:
 	python3 kry.py -h 
 
-sign_code_based:
-	@echo "Example of signing a file using SPHINX+ algorithm."
-	python3 kry.py --onedir code_sign loremipsum.txt
-
 sign_multivariate:
 	@echo "Example of signing a file using multivariate algorithm."
 	python3 kry.py --onedir sign_multivariate loremipsum.txt
@@ -33,7 +29,8 @@ test_multivariate:
 	@echo "loremipsum" >> loremipsum.txt
 	@echo "@@@@@@ Verification should FAIL: @@@@@@"
 	python3 kry.py --onedir verify_multivariate out/cvPub.pub out/loremipsum.txt.signature loremipsum.txt 
-	make loremi
+	make loremipsum
+
 sign_sphinx:
 	@echo "Example of signing a file using SPHINX+ algorithm."
 	python3 kry.py --onedir sphinx_sign loremipsum.txt
