@@ -31,6 +31,9 @@ test_multivariate:
 	python3 kry.py --onedir verify_multivariate out/cvPub.pub out/loremipsum.txt.signature loremipsum.txt 
 	make loremipsum
 
+save: 
+	python3 kry.py --save
+
 sign_sphinx:
 	@echo "Example of signing a file using SPHINX+ algorithm."
 	python3 kry.py --onedir sphinx_sign loremipsum.txt

@@ -16,6 +16,7 @@ from src.hash_based_signature import PySPHINXplus
 from src.exceptions import OptionException
 from src.utilities import log_print
 from src.Multivariate import Multivariate
+from src.save import save
 
 from src.ntru.ntrumain import *
 
@@ -40,6 +41,9 @@ if __name__ == '__main__':
     parser.add_argument("--onedir", action="store_true",
                         help="Save signature and public key in 'out/' directory. "
                         "This option will overwrite existing files.")
+    parser.add_argument("--save", action="store_true",
+                        help="Save signature and public key in archive. "
+                        )
 
     ##################################################
     g_parser = sub_parser.add_parser("ntru_g", help="Generating key")
@@ -92,10 +96,16 @@ if __name__ == '__main__':
     arguments = parser.parse_args()
 
     # """ Setup path """
-    if arguments.onedir:
+    if arguments.save:
+        save_flag = True
+        save()
+    
+    elif arguments.onedir:
+        save_flag= False
         output_files_path = f"./out"
     else:
         # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
+        save_flag= False
         output_files_path = f"./out"
         # if "ntru_g" not in sys.argv:
         #     output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
@@ -114,7 +124,7 @@ if __name__ == '__main__':
             log_filename = f"{output_files_path}/{arguments.file}.log"
             create_directory_flag = False  # while verify, don't create a new folder
 
-    if create_directory_flag:
+    if create_directory_flag and save_flag is False:
         try:
             os.mkdir(output_files_path)  # create directory, fix for FileNotFoundError
         except FileExistsError:
@@ -228,6 +238,10 @@ if __name__ == '__main__':
         tPriv.decryptFile(arguments.file)
         print("All processes are done")
         
+        with open(arguments.file, "r") as fp:
+            content = fp.read()
+    elif save_flag:
+        log_print("Archive saved succesfully")
     else:
         log_print("Invalid usage")
         parser.print_usage()
