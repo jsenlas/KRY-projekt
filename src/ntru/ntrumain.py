@@ -12,6 +12,7 @@ import math
 from src.ntru.padding import *
 from sympy.abc import x
 from src.utilities import log_print
+from src.exceptions import OptionException
 
 # Key generation and saving to numpy's .npz format
 def generate(N, p, q, priv_key_file, pub_key_file):
