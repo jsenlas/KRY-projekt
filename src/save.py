@@ -1,3 +1,10 @@
+""" Saving keys to archive.
+
+    Author: Pavel Podlužanský
+    email: xpodlu01@vutbr.cz
+"""
+
+
 import pyzipper
 import os
 
