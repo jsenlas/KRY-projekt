@@ -44,22 +44,18 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
-
 ### Verify
 
 ```text
-usage: kry.py sphinx_verify [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+usage: kry.py sphinx_verify [-h] public_key signature file
 
 positional arguments:
-  file                  Filename
+  public_key  File containing public key.
+  signature   File containing signature.
+  file        Filename
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -k PUBLIC_KEY, --public_key PUBLIC_KEY
-                        File containing public key.
-  -s SIGNATURE, --signature SIGNATURE
-                        File containing signature.
-
+  -h, --help  show this help message and exit
 ```
 
 
@@ -78,7 +74,7 @@ python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/lor
 ```
 
 
-## SPHINX+ usage
+## Multivariate usage
 
 ### Sign
 ```text
@@ -91,20 +87,18 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
-
 ### Verify
+
 ```text
-usage: kry.py verify_multivariate [-h] [-k PUBLIC_KEY] [-s SIGNATURE] file
+usage: kry.py verify_multivariate [-h] public_key signature file
 
 positional arguments:
-  file                  Filename
+  public_key  File containing public key.
+  signature   File containing signature.
+  file        Filename
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -k PUBLIC_KEY, --public_key PUBLIC_KEY
-                        File containing public key.
-  -s SIGNATURE, --signature SIGNATURE
-                        File containing signature.
+  -h, --help  show this help message and exit
 ```
 
 
@@ -112,17 +106,15 @@ optional arguments:
 
 ### Generate
 ```text
-usage: kry.py ntru_g [-h] [-p PARAMETERS PARAMETERS PARAMETERS] private_file public_file
+usage: kry.py ntru_g [-h] parameters parameters parameters private_file public_file
 
 positional arguments:
-  private_file          Private key Filename
-  public_file           Public key Filename
+  parameters    N p q
+  private_file  Private key Filename
+  public_file   Public key Filename
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -p PARAMETERS PARAMETERS PARAMETERS, --parameters PARAMETERS PARAMETERS PARAMETERS
-                        N p q
-
+  -h, --help    show this help message and exit
 ```
 
 ### Encrypt
@@ -136,7 +128,6 @@ positional arguments:
 
 optional arguments:
   -h, --help      show this help message and exit
-
 ```
 
 ### Decrypt
@@ -144,12 +135,37 @@ optional arguments:
 usage: kry.py ntru_d [-h] private_key encrypted_message decrypted_file
 
 positional arguments:
-  private_key
-  encrypted_message
-  decrypted_file
+  private_key        File containing private key
+  encrypted_message  File containing encrypted message
+  decrypted_file     Output file
 
 optional arguments:
   -h, --help         show this help message and exit
+```
 
 
+## McEliece cryptosystem
+
+### Encrypt
+
+```text
+usage: kry.py encrypt_mceliece [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+### Decrypt
+
+```text
+usage: kry.py decrypt_mceliece [-h] file
+
+positional arguments:
+  file        Filename
+
+optional arguments:
+  -h, --help  show this help message and exit
 ```

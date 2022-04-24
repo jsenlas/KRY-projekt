@@ -8,7 +8,6 @@ install:
 	mkdir out/ntru_key
 	mkdir out/ntru_log
 	@echo "INSTALLING REQUIREMENTS..."
-	mkdir out
 	pip3 install -r requirements.txt
 
 help:

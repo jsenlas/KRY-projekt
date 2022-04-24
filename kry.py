@@ -93,7 +93,6 @@ if __name__ == '__main__':
     m_decrypt_parser.add_argument("private_key", type=str, help="File containing private key.")
     m_decrypt_parser.add_argument("file", type=str, help="Ecyphered file")
 
-
     arguments = parser.parse_args()
 
     # """ Setup path """
@@ -101,22 +100,19 @@ if __name__ == '__main__':
         save_flag = True
         save()
     
-    elif arguments.onedir:
+    if arguments.onedir:
         save_flag= False
         output_files_path = f"./out"
     else:
-        # "./out/filename_dir_date_time/filename.[log, signature, pbkey]"
         save_flag= False
         output_files_path = f"./out"
-        # if "ntru_g" not in sys.argv:
-        #     output_files_path = f"./out/{arguments.file}_dir_{start_time.replace(':', '_')}"
-    
-    # print(output_files_path)
 
     """ Setup logging """
     log_filename = "kry_log.log" # default
     if "ntru_e" or "ntru_d" in sys.argv:
         log_filename = f"out/ntru_log/log_{start_time.replace(':', '_')}"
+    else:
+        log_filename = f"out/log_{start_time.replace(':', '_')}"
 
     create_directory_flag = True
     if arguments.log:
