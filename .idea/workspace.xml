@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e85221e2-493e-4344-90a9-2727f902f99c" name="Changes" comment="Comments for NTRU added">
-      <change beforePath="$PROJECT_DIR$/src/ntru/ntrucipher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ntru/ntrucipher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ntru/ntrumain.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ntru/ntrumain.py" afterDir="false" />
-    </list>
+    <list default="true" id="e85221e2-493e-4344-90a9-2727f902f99c" name="Changes" comment="Comments for NTRU modified" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650801199155</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Comments for NTRU modified">
+      <created>1650801812729</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650801812729</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -98,6 +102,7 @@
     <MESSAGE value="working progress" />
     <MESSAGE value="Ntru functions seperated from kry.py. They are now saved in ntrumain.py" />
     <MESSAGE value="Comments for NTRU added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comments for NTRU added" />
+    <MESSAGE value="Comments for NTRU modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comments for NTRU modified" />
   </component>
 </project>
