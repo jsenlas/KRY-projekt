@@ -4,7 +4,11 @@ env:
 	source ./env/bin/activate
 
 install:
+	mkdir out
+	mkdir out/ntru_key
+	mkdir out/ntru_log
 	@echo "INSTALLING REQUIREMENTS..."
+	mkdir out
 	pip3 install -r requirements.txt
 
 help:
@@ -24,14 +28,12 @@ test_multivariate:
 	@echo "@@@@@@ Signing @@@@@@"
 	python3 kry.py --onedir sign_multivariate loremipsum.txt
 	@echo "@@@@@@ Verification should SUCCEED: @@@@@@"
-	python3 kry.py --onedir verify_multivariate -s out/loremipsum.txt.signature -k out/cvPub.pub loremipsum.txt 
+	python3 kry.py --onedir verify_multivariate out/cvPub.pub out/loremipsum.txt.signature loremipsum.txt 
 	@echo "Modifying original file"
 	@echo "loremipsum" >> loremipsum.txt
 	@echo "@@@@@@ Verification should FAIL: @@@@@@"
-	python3 kry.py --onedir verify_multivariate -s out/loremipsum.txt.signature -k out/cvPub.pub loremipsum.txt 
-	make loremipsum
-
-
+	python3 kry.py --onedir verify_multivariate out/cvPub.pub out/loremipsum.txt.signature loremipsum.txt 
+	make loremi
 sign_sphinx:
 	@echo "Example of signing a file using SPHINX+ algorithm."
 	python3 kry.py --onedir sphinx_sign loremipsum.txt
@@ -42,21 +44,14 @@ test_sphinx:
 	@echo "@@@@@@ Signing @@@@@@"
 	python3 kry.py --onedir sphinx_sign loremipsum.txt
 	@echo "@@@@@@ Verification should SUCCEED: @@@@@@"
-	python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
+	python3 kry.py --onedir sphinx_verify out/loremipsum.txt.pbkey out/loremipsum.txt.signature loremipsum.txt 
 	@echo "Modifying original file"
 	@echo "loremipsum" >> loremipsum.txt
 	@echo "@@@@@@ Verification should FAIL: @@@@@@"
-	python3 kry.py --onedir sphinx_verify -s out/loremipsum.txt.signature -k out/loremipsum.txt.pbkey loremipsum.txt 
+	python3 kry.py --onedir sphinx_verify out/loremipsum.txt.pbkey out/loremipsum.txt.signature loremipsum.txt 
 	make loremipsum
 
-remove_out:
-	rm -rf out/*
-
-clear_log:
-	rm kry_log.log
-	touch kry_log.log
-
-NTRU:
+ntru_test:
 	@echo "TEST START"
 	@echo "In this test, we create a pair of keys and then encrypt/ decrypt the zprava.txt file with them"
 	@echo "Key generation with parameter N = 167, p = 3, q = 32. The generated keys will be saved in ./out/ntru_key"
@@ -66,6 +61,12 @@ NTRU:
 	@echo "Decryption. The decrypted file will be saved in the ./ntru_file directory. The log will be saved in ./out/ntru_log"
 	python kry.py ntru_d private.npz ntru_encrypted.txt ntru_decrypted.txt
 
+remove_out:
+	rm -rf out/*
+
+clear_log:
+	rm kry_log.log
+	touch kry_log.log
 
 pylint:
 	pylint kry.py ./src
