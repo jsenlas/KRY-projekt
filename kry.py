@@ -38,7 +38,7 @@ if __name__ == '__main__':
     parser.add_argument("--log", action="store_true",
                         help="Log to separate file in the generated directory.")
     parser.add_argument("--onedir", action="store_true",
-                        help="Save signature and public key in directory. "
+                        help="Save signature and public key in 'out/' directory. "
                         "This option will overwrite existing files.")
 
     ##################################################
@@ -46,21 +46,18 @@ if __name__ == '__main__':
     g_parser.add_argument("-p", "--parameters", action="store", nargs=3, type=int, help="N p q")
     g_parser.add_argument("private_file", type=str, help="Private key Filename")
     g_parser.add_argument("public_file", type=str, help="Public key Filename")
-    # g_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
     e_parser = sub_parser.add_parser("ntru_e", help="Encrypting message")
     e_parser.add_argument("public_key", type=str)
     e_parser.add_argument("encrypted_file", type=str)
     e_parser.add_argument("message", type=str)
-    # e_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
     d_parser = sub_parser.add_parser("ntru_d", help="Decrypting message")
-    d_parser.add_argument("private_key", type=str)
-    d_parser.add_argument("encrypted_message", type=str)
-    d_parser.add_argument("decrypted_file", type=str)
-    # d_parser.add_argument("file", type=str, help="Filename")
+    d_parser.add_argument("private_key", type=str, help="File containing private key")
+    d_parser.add_argument("encrypted_message", type=str, help="File containing encrypted message")
+    d_parser.add_argument("decrypted_file", type=str, help="Output file")
 
     ##################################################
     sphinx_sign_parser = sub_parser.add_parser("sphinx_sign", help='Signing a file')
@@ -68,8 +65,8 @@ if __name__ == '__main__':
 
     ##################################################
     sphinx_verify_parser = sub_parser.add_parser("sphinx_verify", help='Verifying file signature')
-    sphinx_verify_parser.add_argument("-k", "--public_key", action="store", help="File containing public key.")
-    sphinx_verify_parser.add_argument("-s", "--signature", action="store", help="File containing signature.")
+    sphinx_verify_parser.add_argument("public_key", type=str, help="File containing public key.")
+    sphinx_verify_parser.add_argument("signature", type=str, help="File containing signature.")
     sphinx_verify_parser.add_argument("file", type=str, help="Filename")
 
     ##################################################
@@ -78,10 +75,9 @@ if __name__ == '__main__':
 
     ##################################################
     multivariate_verify_parser = sub_parser.add_parser("verify_multivariate", help='Verifying file signature')
-    multivariate_verify_parser.add_argument("-k", "--public_key", action="store", help="File containing public key.")
-    multivariate_verify_parser.add_argument("-s", "--signature", action="store", help="File containing signature.")
+    multivariate_verify_parser.add_argument("public_key", type=str, help="File containing public key.")
+    multivariate_verify_parser.add_argument("signature", type=str, help="File containing signature.")
     multivariate_verify_parser.add_argument("file", type=str, help="Filename")
-
 
     ##################################################
     m_encrypt_parser = sub_parser.add_parser("encrypt_mceliece", help='Encrypt file using McEliece.')
@@ -95,11 +91,6 @@ if __name__ == '__main__':
 
     arguments = parser.parse_args()
 
-    # print(parser)
-    # print(g_parser)
-    # print(arguments)  # for debug only
-    # import pdb
-    # pdb.set_trace()
     # """ Setup path """
     if arguments.onedir:
         output_files_path = f"./out"
@@ -115,8 +106,6 @@ if __name__ == '__main__':
     log_filename = "kry_log.log" # default
     if "ntru_e" or "ntru_d" in sys.argv:
         log_filename = f"out/ntru_log/log_{start_time.replace(':', '_')}"
-
-
 
     create_directory_flag = True
     if arguments.log:
@@ -240,6 +229,7 @@ if __name__ == '__main__':
         print("All processes are done")
         
     else:
-        log_print("You are wrong...")
+        log_print("Invalid usage")
+        parser.print_usage()
 
     log_print("Done.")
